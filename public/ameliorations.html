@@ -82,21 +82,21 @@
 <section class="wrap">
   <div class="eyebrow">Zoom sur l'axe 06</div>
   <h2>Un lien que personne ne mesure — on peut être les premiers.</h2>
-  <p class="lede">Aucun des trois concurrents benchmarkés ne communique sur un lien mesuré entre contenu et rétention. Leur research reste pensée comme un centre de coût éditorial, pas comme un système piloté par la donnée. Voici comment le construire dès le lancement, avec l'infrastructure Terminal Macro déjà en place.</p>
+  <p class="lede">Aucun des trois concurrents benchmarkés ne communique sur un lien mesuré entre contenu et rétention. Leur research reste pensée comme un centre de coût éditorial, pas comme un système piloté par la donnée. Et contrairement à Terminal Macro qui vit sur un domaine séparé, cette partie R&amp;D est pensée pour vivre <strong style="color:var(--text);">directement sur le site vitrine RaiseFX</strong> — même identifiant client, même session, aucune réconciliation de données entre deux systèmes à faire.</p>
 
   <div class="card" style="margin-top: 12px; padding: 32px;">
-    <div class="tag" style="margin-bottom:20px;">Flux de données proposé</div>
+    <div class="tag" style="margin-bottom:20px;">Flux de données proposé — natif, un seul système</div>
     <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0; font-family: var(--mono); font-size: 13px;">
       <div style="flex:1; min-width:190px; padding:18px; border:1px solid var(--border-strong); border-radius:10px; text-align:center;">
-        Client lit un article / regarde un live<br><span style="color:var(--text-faint); font-size:11px;">(tag contenu : actif, thème, format)</span>
+        Client connecté lit un article / regarde un live<br><span style="color:var(--text-faint); font-size:11px;">(tag contenu : actif, thème, format)</span>
       </div>
       <div style="flex:0 0 auto; padding:0 14px; color:var(--red); font-size:18px;">→</div>
       <div style="flex:1; min-width:190px; padding:18px; border:1px solid var(--border-strong); border-radius:10px; text-align:center;">
-        Identifiant client associé à la lecture<br><span style="color:var(--text-faint); font-size:11px;">(anonymisé / hashé)</span>
+        Même compte client déjà utilisé pour trader<br><span style="color:var(--text-faint); font-size:11px;">(pas d'ID séparé à recouper)</span>
       </div>
       <div style="flex:0 0 auto; padding:0 14px; color:var(--red); font-size:18px;">→</div>
       <div style="flex:1; min-width:190px; padding:18px; border:1px solid var(--border-strong); border-radius:10px; text-align:center;">
-        Croisement hebdo avec le CRM broker<br><span style="color:var(--text-faint); font-size:11px;">(connexions, trades, churn)</span>
+        Lecture de contenu + activité de trading, même base<br><span style="color:var(--text-faint); font-size:11px;">(connexions, trades, churn)</span>
       </div>
       <div style="flex:0 0 auto; padding:0 14px; color:var(--red); font-size:18px;">→</div>
       <div style="flex:1; min-width:190px; padding:18px; border:1px solid var(--gradient); border-radius:10px; text-align:center; background: var(--gradient-soft);">
@@ -104,6 +104,8 @@
       </div>
     </div>
   </div>
+
+  <p style="margin-top:20px; font-size:14px;">Concrètement : pas de hashing, pas de job de réconciliation hebdomadaire entre deux bases — la lecture d'un article et l'ouverture d'une position sont deux événements du même compte, sur le même site. Le croisement devient une requête, pas un projet data à part entière.</p>
 
   <div class="grid grid-2" style="margin-top:28px;">
     <div class="card">
