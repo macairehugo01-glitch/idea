@@ -165,6 +165,18 @@ h3 { font-size: 18px; }
 p { color: var(--text-dim); margin: 0 0 16px; text-align: justify; }
 .lede { font-size: 18px; color: var(--text-dim); max-width: 640px; }
 
+/* Short blurbs inside cards/tiles read badly justified: keep them left-aligned */
+.card p,
+.option-card p,
+.module-card p,
+.article-card p,
+.quiz-teaser p,
+.formation-teaser p,
+.quiz-result-box p,
+.fidelity-strip p {
+  text-align: left;
+}
+
 section { padding: 88px 0; border-bottom: 1px solid var(--border); }
 section:last-of-type { border-bottom: none; }
 
@@ -326,5 +338,5 @@ footer {
 }
 
 .kicker-page {
-  padding: 140px 0 40px;
+  padding: 96px 0 40px;
 }
