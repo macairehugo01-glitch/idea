@@ -83,6 +83,19 @@
     position: absolute; margin: -34px 0 0 14px; font-family: var(--mono); font-size: 10px;
     background: var(--red); color: #fff; padding: 3px 10px; border-radius: 999px;
   }
+
+  .article-card.is-read { opacity: 0.55; }
+  .article-card.is-read .article-thumb { filter: blur(2px); }
+  .article-card.is-read .cat-tag { background: var(--surface-2); }
+  .read-badge { color: var(--text-faint); }
+
+  .formation-teaser {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius);
+    padding: 22px 26px; margin-bottom: 40px;
+  }
+  .formation-teaser h3 { margin: 0 0 4px; }
+  .formation-teaser p { margin: 0; color: var(--text-dim); font-size: 14px; }
 </style>
 </head>
 <body>
@@ -129,7 +142,15 @@
       <h3>Tu ne sais pas par où commencer ?</h3>
       <p>Un quiz de 2 minutes pour trouver la stratégie, l'actif et le format qui te correspondent.</p>
     </div>
-    <a href="idees.html" class="btn btn-primary">Faire le quiz →</a>
+    <a href="exemple-quiz.html" class="btn btn-primary">Faire le quiz →</a>
+  </div>
+
+  <div class="formation-teaser">
+    <div>
+      <h3>Formation</h3>
+      <p>Des modules classés par stratégie et par niveau, séparés du flux d'articles.</p>
+    </div>
+    <a href="exemple-formation.html" class="btn btn-ghost" style="border: 1px solid var(--border-strong);">Voir la formation →</a>
   </div>
 
   <div class="filter-tabs" id="filter-tabs">
@@ -138,7 +159,6 @@
     <button class="filter-btn" data-filter="crypto">Crypto</button>
     <button class="filter-btn" data-filter="forex">Forex</button>
     <button class="filter-btn" data-filter="indices">Indices</button>
-    <button class="filter-btn" data-filter="formation">Formation</button>
   </div>
 
   <div class="article-grid" id="article-grid">
@@ -155,14 +175,14 @@
       </div>
     </a>
 
-    <a href="exemple-article.html" class="article-card" data-cat="crypto">
+    <a href="exemple-article.html" class="article-card is-read" data-cat="crypto">
       <div class="article-thumb"><span class="cat-tag">Crypto</span></div>
       <div class="article-body-preview">
         <h3>BTC : la consolidation avant la cassure ?</h3>
         <p>Le marché retient son souffle sous la résistance des 65 000. Ce que dit le positionnement des dérivés.</p>
         <div class="article-meta">
           <span>Hugo, 3 min</span>
-          <span class="points-badge">+15 pts quiz</span>
+          <span class="read-badge">Lu ✓</span>
         </div>
       </div>
     </a>
@@ -179,14 +199,14 @@
       </div>
     </a>
 
-    <a href="exemple-article.html" class="article-card" data-cat="indices">
+    <a href="exemple-article.html" class="article-card is-read" data-cat="indices">
       <div class="article-thumb"><span class="cat-tag">Indices</span></div>
       <div class="article-body-preview">
         <h3>Nasdaq 100 : earnings season, le vrai test</h3>
         <p>Les valorisations tendues laissent peu de place à l'erreur pour les résultats trimestriels à venir.</p>
         <div class="article-meta">
           <span>David, 5 min</span>
-          <span class="points-badge">+15 pts quiz</span>
+          <span class="read-badge">Lu ✓</span>
         </div>
       </div>
     </a>
@@ -198,18 +218,6 @@
         <p>La demande officielle reste sur des niveaux historiquement élevés, un plancher structurel pour le métal jaune.</p>
         <div class="article-meta">
           <span>Rim, 3 min</span>
-          <span class="points-badge">+15 pts quiz</span>
-        </div>
-      </div>
-    </a>
-
-    <a href="exemple-article.html" class="article-card" data-cat="formation">
-      <div class="article-thumb"><span class="cat-tag">Formation</span></div>
-      <div class="article-body-preview">
-        <h3>ICT vs Volume Profile : quelle stratégie pour ton profil ?</h3>
-        <p>Deux approches populaires, deux façons de lire le marché. Laquelle correspond à ta façon de trader ?</p>
-        <div class="article-meta">
-          <span>Hugo, 6 min</span>
           <span class="points-badge">+15 pts quiz</span>
         </div>
       </div>
