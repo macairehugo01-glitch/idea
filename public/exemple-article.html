@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exemple d'article interactif : R&D RaiseFX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<style>
+  .demo-banner {
+    background: var(--gradient-soft);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+  }
+  .demo-banner strong { color: var(--text); }
+  .widget {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    margin: 32px 0;
+  }
+  .widget-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--red);
+    margin-bottom: 14px;
+  }
+  .btn-row-tight { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+  .choice-btn {
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .choice-btn:hover { border-color: var(--red); }
+  .choice-btn.selected { background: var(--gradient); border-color: transparent; color: #fff; }
+  .article-body p { color: var(--text-dim); line-height: 1.75; }
+  .article-body.hidden-until-predict { opacity: 0.15; filter: blur(3px); pointer-events: none; transition: opacity 0.4s ease, filter 0.4s ease; }
+  .article-body.revealed { opacity: 1; filter: none; pointer-events: auto; }
+  .toggle-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+  .tab-btn {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 13px;
+    font-family: var(--mono);
+    cursor: pointer;
+  }
+  .tab-btn.active { background: var(--surface-2); color: var(--text); border-color: var(--red); }
+  .level-block { display: none; }
+  .level-block.active { display: block; }
+  .chart-controls { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+  .chart-group { display: flex; gap: 6px; }
+  .chart-svg { width: 100%; height: 220px; }
+  .chart-price { font-family: var(--mono); font-size: 22px; color: var(--text); margin-top: 10px; }
+  .slider-row { display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+  input[type="range"] { flex: 1; accent-color: var(--red); }
+  .slider-value { font-family: var(--mono); font-size: 15px; color: var(--text); min-width: 90px; text-align: right; }
+  .projected-box { margin-top: 16px; padding: 16px; background: var(--surface-2); border-radius: 10px; font-family: var(--mono); font-size: 14px; }
+  .sim-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; margin-top: 14px; }
+  .sim-field label { display: block; font-size: 12px; color: var(--text-faint); margin-bottom: 6px; font-family: var(--mono); }
+  .sim-field input[type="number"] {
+    background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 8px;
+    padding: 10px 12px; color: var(--text); font-family: var(--sans); font-size: 14px; width: 140px;
+  }
+  .sim-result { margin-top: 16px; padding: 16px; border-radius: 10px; font-family: var(--mono); font-size: 15px; background: var(--surface-2); }
+  .sim-result.pos { color: #34d399; }
+  .sim-result.neg { color: var(--red); }
+  .poll-bar-row { margin-top: 10px; }
+  .poll-bar-track { background: var(--surface-2); border-radius: 999px; overflow: hidden; height: 10px; margin-top: 6px; }
+  .poll-bar-fill { height: 100%; background: var(--gradient); }
+  .poll-label { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-dim); }
+  .quiz-question { margin-bottom: 18px; }
+  .quiz-question p.q { color: var(--text); font-weight: 600; margin-bottom: 10px; }
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+  .quiz-option { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-dim); cursor: pointer; }
+  .quiz-result { margin-top: 16px; padding: 16px; border-radius: 10px; background: var(--gradient-soft); font-size: 14px; color: var(--text); display: none; }
+  .lb-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+  .lb-table td { padding: 10px 8px; border-bottom: 1px solid var(--border); color: var(--text-dim); }
+  .lb-table tr.you td { color: var(--text); font-weight: 600; background: var(--gradient-soft); }
+  .lb-rank { font-family: var(--mono); color: var(--text-faint); width: 30px; }
+  .audio-controls { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+  .audio-btn {
+    width: 44px; height: 44px; border-radius: 50%; border: none; background: var(--gradient);
+    color: #fff; font-size: 16px; cursor: pointer;
+  }
+  .share-row { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  .share-btn {
+    padding: 10px 18px; border-radius: 999px; border: 1px solid var(--border-strong);
+    background: transparent; color: var(--text); font-size: 14px; cursor: pointer;
+  }
+  .share-btn:hover { border-color: var(--red); }
+  .points-toast {
+    display: none; margin-top: 10px; font-size: 13px; color: var(--red); font-family: var(--mono);
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="orb-dot"></span>RaiseFX <span class="rd">/ R&amp;D</span></div>
+    <div class="nav-links">
+      <a href="/idees.html">← Retour aux idées</a>
+    </div>
+  </div>
+</nav>
+
+<header class="wrap kicker-page" style="padding-bottom: 20px;">
+  <div class="demo-banner"><strong>Ceci est une démonstration.</strong> Données fictives, mais chaque mécanique ci-dessous est réellement testable : clique, glisse le curseur, réponds au quiz.</div>
+  <div class="eyebrow">Exemple d'article, format cible</div>
+  <h1>EUR/USD : la décision de la BCE peut-elle casser la tendance ?</h1>
+  <p class="lede">Par Hugo, Market Analyst. Couverture indices et crypto. Article de démonstration, 4 minutes de lecture.</p>
+</header>
+
+<section class="wrap">
+
+  <div class="widget">
+    <div class="widget-label">Prédiction avant lecture</div>
+    <p style="color: var(--text-dim); margin-bottom: 4px;">Avant de lire l'analyse, où penses-tu que sera l'EUR/USD dans une semaine ?</p>
+    <div class="btn-row-tight" id="predict-buttons">
+      <button class="choice-btn" data-choice="hausse">En hausse</button>
+      <button class="choice-btn" data-choice="stable">Stable</button>
+      <button class="choice-btn" data-choice="baisse">En baisse</button>
+    </div>
+    <p id="predict-note" style="font-size: 13px; color: var(--text-faint); margin-top: 10px; display:none;">Ton pronostic est enregistré. Continue la lecture, on comparera à la fin.</p>
+  </div>
+
+  <div class="article-body hidden-until-predict" id="article-body">
+
+    <div class="toggle-tabs">
+      <button class="tab-btn active" data-level="debutant">Version débutant</button>
+      <button class="tab-btn" data-level="avance">Version avancée</button>
+    </div>
+
+    <div class="level-block active" data-level-block="debutant">
+      <p>La paire EUR/USD évolue autour de 1,0829 cette semaine. En clair, un euro vaut environ 1,08 dollar. La Banque Centrale Européenne (BCE) doit annoncer sa décision sur les taux d'intérêt jeudi, et c'est l'événement qui va probablement bouger le prix le plus.</p>
+      <p>Si la BCE augmente ses taux, l'euro devient généralement plus attractif et peut monter. Si elle les baisse, l'inverse peut se produire. Le niveau à surveiller à la hausse est 1,0850, celui à la baisse est 1,0780.</p>
+    </div>
+    <div class="level-block" data-level-block="avance">
+      <p>L'EUR/USD consolide sous la résistance de 1,0850 après un rebond depuis le support hebdomadaire à 1,0765. Le marché price actuellement environ 65% de probabilité d'un statu quo de la BCE jeudi, avec un biais accommodant dans la forward guidance qui pourrait peser sur le carry différentiel EUR/USD à court terme.</p>
+      <p>Sur le plan technique, le RSI journalier évolue autour de 58, sans divergence marquée. Une clôture au-dessus de 1,0850 ouvrirait la voie vers 1,0900. Un rejet confirmerait un retour vers la zone de demande à 1,0780, cohérente avec le point pivot hebdomadaire.</p>
+    </div>
+
+  </div>
+
+  <div class="widget">
+    <div class="widget-label">Graphique interactif</div>
+    <div class="chart-controls">
+      <div class="chart-group" id="asset-buttons">
+        <button class="choice-btn selected" data-asset="EURUSD">EUR/USD</button>
+        <button class="choice-btn" data-asset="BTCUSD">BTC/USD</button>
+        <button class="choice-btn" data-asset="XAUUSD">XAU/USD</button>
+      </div>
+      <div class="chart-group" id="tf-buttons">
+        <button class="choice-btn selected" data-tf="1D">1J</button>
+        <button class="choice-btn" data-tf="1W">1S</button>
+        <button class="choice-btn" data-tf="1M">1M</button>
+      </div>
+    </div>
+    <svg class="chart-svg" id="chart-svg" viewBox="0 0 600 220" preserveAspectRatio="none"></svg>
+    <div class="chart-price" id="chart-price"></div>
+  </div>
+
+  <div class="widget">
+    <div class="widget-label">Curseur de scénario</div>
+    <p style="color: var(--text-dim); margin: 0;">Décision de la BCE (variation de taux, en points de base)</p>
+    <div class="slider-row">
+      <input type="range" id="scenario-slider" min="-50" max="50" step="5" value="0">
+      <div class="slider-value" id="scenario-value">0 pb</div>
+    </div>
+    <div class="projected-box" id="projected-box">EUR/USD projeté : 1.0829 (0.00%)</div>
+  </div>
+
+  <div class="widget">
+    <div class="widget-label">Simulateur de position</div>
+    <p style="color: var(--text-dim); margin: 0;">Teste la thèse de l'article, sans argent réel. Le résultat dépend du curseur de scénario ci-dessus.</p>
+    <div class="sim-row">
+      <div class="sim-field">
+        <label>Montant fictif ($)</label>
+        <input type="number" id="sim-amount" value="1000" min="0">
+      </div>
+      <div class="sim-field">
+        <label>Direction</label>
+        <div class="btn-row-tight" id="sim-direction" style="margin-top:0;">
+          <button class="choice-btn selected" data-dir="achat">Achat</button>
+          <button class="choice-btn" data-dir="vente">Vente</button>
+        </div>
+      </div>
+    </div>
+    <div class="sim-result" id="sim-result">Résultat projeté : $0.00</div>
+  </div>
+
+  <div class="widget">
+    <div class="widget-label">Sondage en direct</div>
+    <p style="color: var(--text-dim); margin: 0;">D'accord avec le call de l'article ?</p>
+    <div class="btn-row-tight" id="poll-buttons">
+      <button class="choice-btn" data-vote="oui">Oui</button>
+      <button class="choice-btn" data-vote="non">Non</button>
+    </div>
+    <div class="poll-bar-row">
+      <div class="poll-label"><span>Oui</span><span id="poll-oui-pct">62%</span></div>
+      <div class="poll-bar-track"><div class="poll-bar-fill" id="poll-oui-bar" style="width:62%;"></div></div>
+    </div>
+    <div class="poll-bar-row">
+      <div class="poll-label"><span>Non</span><span id="poll-non-pct">38%</span></div>
+      <div class="poll-bar-track"><div class="poll-bar-fill" id="poll-non-bar" style="width:38%; background: var(--text-faint);"></div></div>
+    </div>
+  </div>
+
+  <div class="widget">
+    <div class="widget-label">Version audio</div>
+    <p style="color: var(--text-dim); margin: 0;">Écoute l'article plutôt que de le lire.</p>
+    <div class="audio-controls">
+      <button class="audio-btn" id="audio-play">▶</button>
+      <span style="font-size: 13px; color: var(--text-faint);" id="audio-status">Prêt à lire l'article à voix haute</span>
+    </div>
+  </div>
+
+  <div class="widget">
+    <div class="widget-label">Quiz de fin d'article</div>
+    <div class="quiz-question">
+      <p class="q">1. Quel niveau technique agit comme résistance selon l'article ?</p>
+      <div class="quiz-options">
+        <label class="quiz-option"><input type="radio" name="q1" value="wrong1"> 1,0780</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="correct"> 1,0850</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="wrong2"> 1,0900</label>
+      </div>
+    </div>
+    <div class="quiz-question">
+      <p class="q">2. Quel événement macro est cité comme principal moteur ?</p>
+      <div class="quiz-options">
+        <label class="quiz-option"><input type="radio" name="q2" value="wrong1"> Emploi américain</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="correct"> Décision de la BCE</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="wrong2"> Inflation au Royaume-Uni</label>
+      </div>
+    </div>
+    <button class="btn btn-primary" id="quiz-submit" style="border:none; cursor:pointer;">Valider le quiz</button>
+    <div class="quiz-result" id="quiz-result"></div>
+  </div>
+
+  <div class="widget">
+    <div class="widget-label">Quête sociale de partage</div>
+    <p style="color: var(--text-dim); margin: 0;">Partage cet article, gagne des points de fidélité supplémentaires.</p>
+    <div class="share-row">
+      <button class="share-btn" id="share-x">Partager sur X</button>
+      <button class="share-btn" id="share-linkedin">Partager sur LinkedIn</button>
+    </div>
+    <div class="points-toast" id="share-toast">+10 points de fidélité crédités</div>
+  </div>
+
+  <div class="widget">
+    <div class="widget-label">Classement discret de lecture</div>
+    <table class="lb-table">
+      <tbody>
+        <tr><td class="lb-rank">1</td><td>Camille R.</td><td>1 240 pts</td></tr>
+        <tr><td class="lb-rank">2</td><td>Karim B.</td><td>1 180 pts</td></tr>
+        <tr><td class="lb-rank">3</td><td>Sofia T.</td><td>1 050 pts</td></tr>
+        <tr class="you"><td class="lb-rank">4</td><td>Vous</td><td id="your-points">890 pts</td></tr>
+        <tr><td class="lb-rank">5</td><td>Antoine L.</td><td>845 pts</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+<footer class="wrap">
+  Plan de construction interne. Département R&amp;D RaiseFX. Non destiné à un usage public.
+</footer>
+
+<script>
+(function() {
+  // Prediction before reading
+  const predictButtons = document.querySelectorAll('#predict-buttons .choice-btn');
+  const articleBody = document.getElementById('article-body');
+  const predictNote = document.getElementById('predict-note');
+  let userPrediction = null;
+  predictButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      predictButtons.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      userPrediction = btn.dataset.choice;
+      articleBody.classList.add('revealed');
+      predictNote.style.display = 'block';
+    });
+  });
+
+  // Beginner / advanced toggle
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.level-block').forEach(lb => lb.classList.remove('active'));
+      document.querySelector('[data-level-block="' + btn.dataset.level + '"]').classList.add('active');
+    });
+  });
+
+  // Chart data (fake)
+  const chartData = {
+    EURUSD: {
+      '1D': [1.0812,1.0808,1.0815,1.0820,1.0817,1.0823,1.0828,1.0825,1.0831,1.0829],
+      '1W': [1.0765,1.0780,1.0798,1.0790,1.0805,1.0812,1.0829],
+      '1M': [1.0690,1.0715,1.0702,1.0740,1.0725,1.0760,1.0748,1.0780,1.0765,1.0795,1.0810,1.0829]
+    },
+    BTCUSD: {
+      '1D': [64200,64350,64100,64500,64620,64480,64750,64900,64830,65010],
+      '1W': [61200,62400,61800,63100,63900,64200,65010],
+      '1M': [58000,59200,57600,60100,61300,60700,62000,61500,63200,62800,64100,65010]
+    },
+    XAUUSD: {
+      '1D': [2385,2388,2391,2389,2394,2398,2396,2401,2405,2403],
+      '1W': [2360,2368,2372,2380,2385,2394,2403],
+      '1M': [2310,2325,2318,2340,2335,2352,2348,2365,2358,2378,2390,2403]
+    }
+  };
+  const decimals = { EURUSD: 4, BTCUSD: 0, XAUUSD: 2 };
+  let currentAsset = 'EURUSD';
+  let currentTf = '1D';
+
+  function drawChart() {
+    const data = chartData[currentAsset][currentTf];
+    const svg = document.getElementById('chart-svg');
+    const w = 600, h = 220, pad = 10;
+    const min = Math.min(...data), max = Math.max(...data);
+    const range = (max - min) || 1;
+    const stepX = (w - pad * 2) / (data.length - 1);
+    let points = data.map((v, i) => {
+      const x = pad + i * stepX;
+      const y = h - pad - ((v - min) / range) * (h - pad * 2);
+      return x + ',' + y;
+    }).join(' ');
+    const red = getComputedStyle(document.documentElement).getPropertyValue('--red').trim();
+    svg.innerHTML =
+      '<polyline points="' + points + '" fill="none" stroke="' + red + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>' +
+      data.map((v, i) => {
+        const x = pad + i * stepX;
+        const y = h - pad - ((v - min) / range) * (h - pad * 2);
+        return '<circle cx="' + x + '" cy="' + y + '" r="3" fill="' + red + '" opacity="0.7"/>';
+      }).join('');
+    const last = data[data.length - 1];
+    document.getElementById('chart-price').textContent =
+      currentAsset + ' : ' + last.toFixed(decimals[currentAsset]) + ' (' + currentTf + ')';
+  }
+
+  document.querySelectorAll('#asset-buttons .choice-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#asset-buttons .choice-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      currentAsset = btn.dataset.asset;
+      drawChart();
+    });
+  });
+  document.querySelectorAll('#tf-buttons .choice-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#tf-buttons .choice-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      currentTf = btn.dataset.tf;
+      drawChart();
+    });
+  });
+  drawChart();
+
+  // Scenario slider
+  const basePrice = 1.0829;
+  const slider = document.getElementById('scenario-slider');
+  const sliderValue = document.getElementById('scenario-value');
+  const projectedBox = document.getElementById('projected-box');
+  let projectedPrice = basePrice;
+  let projectedPct = 0;
+
+  function updateScenario() {
+    const bps = parseInt(slider.value, 10);
+    sliderValue.textContent = (bps > 0 ? '+' : '') + bps + ' pb';
+    projectedPct = (bps / 100) * 0.012;
+    projectedPrice = basePrice * (1 + projectedPct);
+    projectedBox.textContent = 'EUR/USD projeté : ' + projectedPrice.toFixed(4) + ' (' + (projectedPct * 100 >= 0 ? '+' : '') + (projectedPct * 100).toFixed(2) + '%)';
+    updateSimulator();
+  }
+  slider.addEventListener('input', updateScenario);
+  updateScenario();
+
+  // Position simulator
+  let simDirection = 'achat';
+  document.querySelectorAll('#sim-direction .choice-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#sim-direction .choice-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      simDirection = btn.dataset.dir;
+      updateSimulator();
+    });
+  });
+  document.getElementById('sim-amount').addEventListener('input', updateSimulator);
+
+  function updateSimulator() {
+    const amount = parseFloat(document.getElementById('sim-amount').value) || 0;
+    const leverage = 10;
+    const sign = simDirection === 'achat' ? 1 : -1;
+    const pnl = amount * projectedPct * sign * leverage;
+    const el = document.getElementById('sim-result');
+    el.textContent = 'Résultat projeté : ' + (pnl >= 0 ? '+' : '') + '$' + pnl.toFixed(2) + ' (levier x' + leverage + ', fictif)';
+    el.className = 'sim-result ' + (pnl >= 0 ? 'pos' : 'neg');
+  }
+  updateSimulator();
+
+  // Live poll
+  let pollCounts = { oui: 132, non: 82 };
+  let hasVoted = false;
+  function renderPoll() {
+    const total = pollCounts.oui + pollCounts.non;
+    const ouiPct = Math.round((pollCounts.oui / total) * 100);
+    const nonPct = 100 - ouiPct;
+    document.getElementById('poll-oui-pct').textContent = ouiPct + '%';
+    document.getElementById('poll-non-pct').textContent = nonPct + '%';
+    document.getElementById('poll-oui-bar').style.width = ouiPct + '%';
+    document.getElementById('poll-non-bar').style.width = nonPct + '%';
+  }
+  document.querySelectorAll('#poll-buttons .choice-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (hasVoted) return;
+      hasVoted = true;
+      pollCounts[btn.dataset.vote]++;
+      document.querySelectorAll('#poll-buttons .choice-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      renderPoll();
+    });
+  });
+  renderPoll();
+
+  // Audio (real Speech Synthesis)
+  const audioBtn = document.getElementById('audio-play');
+  const audioStatus = document.getElementById('audio-status');
+  const articleText = document.querySelector('[data-level-block="debutant"]').innerText;
+  let utterance = null;
+  let isSpeaking = false;
+  audioBtn.addEventListener('click', () => {
+    if (!('speechSynthesis' in window)) {
+      audioStatus.textContent = 'Lecture audio non supportée par ce navigateur';
+      return;
+    }
+    if (isSpeaking) {
+      window.speechSynthesis.pause();
+      audioBtn.textContent = '▶';
+      audioStatus.textContent = 'En pause';
+      isSpeaking = false;
+      return;
+    }
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+    } else {
+      utterance = new SpeechSynthesisUtterance(articleText);
+      utterance.lang = 'fr-FR';
+      utterance.onend = () => {
+        audioBtn.textContent = '▶';
+        audioStatus.textContent = 'Lecture terminée';
+        isSpeaking = false;
+      };
+      window.speechSynthesis.speak(utterance);
+    }
+    audioBtn.textContent = '❚❚';
+    audioStatus.textContent = 'Lecture en cours';
+    isSpeaking = true;
+  });
+
+  // Quiz
+  document.getElementById('quiz-submit').addEventListener('click', () => {
+    const q1 = document.querySelector('input[name="q1"]:checked');
+    const q2 = document.querySelector('input[name="q2"]:checked');
+    let score = 0;
+    if (q1 && q1.value === 'correct') score++;
+    if (q2 && q2.value === 'correct') score++;
+    const result = document.getElementById('quiz-result');
+    result.style.display = 'block';
+    let predictionLine = '';
+    if (userPrediction) {
+      predictionLine = ' Ton pronostic de départ était "' + userPrediction + '", à comparer avec le call de l\'analyste ci-dessus.';
+    }
+    result.textContent = score + '/2 bonnes réponses. +' + (score * 10 + 5) + ' points de fidélité crédités.' + predictionLine;
+  });
+
+  // Social share
+  const pageUrl = window.location.href;
+  document.getElementById('share-x').addEventListener('click', () => {
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent('EUR/USD : la BCE peut-elle casser la tendance ?') + '&url=' + encodeURIComponent(pageUrl), '_blank');
+    document.getElementById('share-toast').style.display = 'block';
+  });
+  document.getElementById('share-linkedin').addEventListener('click', () => {
+    window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(pageUrl), '_blank');
+    document.getElementById('share-toast').style.display = 'block';
+  });
+})();
+</script>
+
+</body>
+</html>
