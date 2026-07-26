@@ -6,339 +6,7 @@
 <title>Exemple d'article interactif : R&D RaiseFX</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #0a0710;
-  --bg-soft: #100b1a;
-  --surface: #170f13;
-  --surface-2: #1e1317;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
-  --text: #f4f0ee;
-  --text-dim: #c4a3a9;
-  --text-faint: #806066;
-  --red: #e8384f;
-  --bordeaux: #6b1f2a;
-  --gradient: linear-gradient(135deg, #e8384f 0%, #6b1f2a 100%);
-  --gradient-soft: linear-gradient(135deg, rgba(232, 56, 79, 0.14) 0%, rgba(107, 31, 42, 0.20) 100%);
-  --mono: "IBM Plex Mono", ui-monospace, monospace;
-  --sans: "IBM Plex Sans", -apple-system, sans-serif;
-  --display: "Space Grotesk", var(--sans);
-  --radius: 14px;
-}
-
-* { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  margin: 0;
-  background: var(--bg);
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(107, 31, 42, 0.22), transparent),
-    radial-gradient(ellipse 60% 40% at 90% 10%, rgba(232, 56, 79, 0.10), transparent);
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-}
-
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
-
-.wrap {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 32px;
-}
-
-/* ---------- Nav ---------- */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: rgba(10, 7, 16, 0.82);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-}
-.nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 32px;
-  max-width: 1120px;
-  margin: 0 auto;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: 17px;
-  letter-spacing: 0.01em;
-}
-.brand .orb-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--gradient);
-  box-shadow: 0 0 14px rgba(234, 58, 95, 0.55);
-  flex-shrink: 0;
-}
-.brand .rd {
-  color: var(--text-faint);
-  font-weight: 400;
-  font-family: var(--mono);
-  font-size: 13px;
-}
-.nav-links {
-  display: flex;
-  gap: 28px;
-  font-size: 14px;
-  color: var(--text-dim);
-}
-.nav-links a { transition: color 0.15s ease; position: relative; }
-.nav-links a:hover { color: var(--text); }
-.nav-links a.active { color: var(--text); }
-.nav-links a.active::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: -20px;
-  height: 2px;
-  background: var(--gradient);
-}
-.nav-toggle { display: none; }
-
-@media (max-width: 720px) {
-  .nav-links { display: none; }
-}
-
-/* ---------- Hero orb (signature element) ---------- */
-.orb-field {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle at 32% 28%, #ff8f9c 0%, var(--red) 30%, var(--bordeaux) 74%, #200a0d 100%);
-  box-shadow:
-    0 0 90px rgba(107, 31, 42, 0.5),
-    0 0 160px rgba(232, 56, 79, 0.22),
-    inset -18px -18px 50px rgba(0,0,0,0.45);
-  animation: spin 46s linear infinite;
-}
-.orb-ring {
-  position: absolute;
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 50%;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-/* ---------- Sections ---------- */
-.eyebrow {
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--red);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 18px;
-}
-.eyebrow::before {
-  content: "";
-  width: 18px;
-  height: 1px;
-  background: var(--gradient);
-}
-
-h1, h2, h3 {
-  font-family: var(--display);
-  font-weight: 600;
-  margin: 0 0 16px;
-  letter-spacing: -0.01em;
-}
-h1 { font-size: clamp(34px, 5vw, 58px); line-height: 1.06; }
-h2 { font-size: clamp(24px, 3vw, 34px); line-height: 1.15; }
-h3 { font-size: 18px; }
-p { color: var(--text-dim); margin: 0 0 16px; }
-.lede { font-size: 18px; color: var(--text-dim); max-width: 640px; }
-
-section { padding: 88px 0; border-bottom: 1px solid var(--border); }
-section:last-of-type { border-bottom: none; }
-
-.hero {
-  padding: 72px 0 60px;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 40px;
-  align-items: center;
-}
-@media (max-width: 860px) {
-  .hero { grid-template-columns: 1fr; }
-}
-.hero-visual {
-  position: relative;
-  height: 340px;
-}
-
-.btn-row { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 13px 22px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 600;
-  border: 1px solid var(--border-strong);
-  transition: transform 0.15s ease, border-color 0.15s ease;
-}
-.btn-primary { background: var(--gradient); border: none; color: #fff; }
-.btn:hover { transform: translateY(-1px); }
-.btn-ghost:hover { border-color: rgba(255,255,255,0.3); }
-
-/* ---------- Cards / grids ---------- */
-.grid { display: grid; gap: 20px; }
-.grid-2 { grid-template-columns: repeat(2, 1fr); }
-.grid-3 { grid-template-columns: repeat(3, 1fr); }
-@media (max-width: 780px) {
-  .grid-2, .grid-3 { grid-template-columns: 1fr; }
-}
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 26px;
-}
-.card:hover { border-color: var(--border-strong); }
-
-.tag {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border-strong);
-  color: var(--text-dim);
-}
-
-/* ---------- Benchmark table ---------- */
-.bench-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-  margin-top: 12px;
-}
-.bench-table th, .bench-table td {
-  padding: 16px 14px;
-  text-align: left;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-}
-.bench-table th {
-  font-family: var(--mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-faint);
-  font-weight: 500;
-}
-.bench-table td.row-label {
-  font-family: var(--display);
-  font-weight: 600;
-  color: var(--text);
-  white-space: nowrap;
-}
-.dot {
-  display: inline-block;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  margin-right: 8px;
-}
-.dot-yes { background: #34d399; }
-.dot-partial { background: #f5b942; }
-.dot-no { background: #4a4058; }
-.bench-table .broker-us td.row-label { color: transparent; background: var(--gradient); -webkit-background-clip: text; background-clip: text; }
-
-.table-scroll { overflow-x: auto; }
-
-/* ---------- Gap / formation blocks ---------- */
-.gap-item {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  padding: 26px 0;
-  border-bottom: 1px solid var(--border);
-}
-@media (max-width: 780px) { .gap-item { grid-template-columns: 1fr; } }
-.gap-col-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
-.gap-col-label.have { color: var(--text-faint); }
-.gap-col-label.need { color: var(--red); }
-
-/* ---------- Video page ---------- */
-.video-frame {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16/9;
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.video-frame video { width: 100%; height: 100%; object-fit: cover; }
-.video-placeholder {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 14px;
-  color: var(--text-faint);
-  font-family: var(--mono);
-  font-size: 13px;
-  text-align: center;
-  padding: 20px;
-}
-
-/* ---------- Roadmap / axes ---------- */
-.axis {
-  display: flex;
-  gap: 20px;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--border);
-}
-.axis-num {
-  font-family: var(--display);
-  font-size: 28px;
-  color: var(--text-faint);
-  min-width: 44px;
-}
-.axis.impact-high .axis-num { color: var(--red); }
-
-/* ---------- Footer ---------- */
-footer {
-  padding: 48px 0 60px;
-  text-align: center;
-  color: var(--text-faint);
-  font-size: 13px;
-}
-
-.kicker-page {
-  padding: 140px 0 40px;
-}
-
-</style>
+<link rel="stylesheet" href="/css/style.css">
 <style>
   .demo-banner {
     background: var(--gradient-soft);
@@ -381,9 +49,11 @@ footer {
   .choice-btn:hover { border-color: var(--red); }
   .choice-btn.selected { background: var(--gradient); border-color: transparent; color: #fff; }
   .article-body p { color: var(--text-dim); line-height: 1.75; }
+  .article-body h3 { margin-top: 8px; }
   .article-body.hidden-until-predict { opacity: 0.15; filter: blur(3px); pointer-events: none; transition: opacity 0.4s ease, filter 0.4s ease; }
   .article-body.revealed { opacity: 1; filter: none; pointer-events: auto; }
-  .toggle-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+  .lede-intro { font-size: 17px; color: var(--text-dim); line-height: 1.75; margin: 24px 0 32px; }
+  .toggle-tabs { display: flex; gap: 8px; margin-bottom: 24px; }
   .tab-btn {
     padding: 8px 16px;
     border-radius: 999px;
@@ -397,8 +67,7 @@ footer {
   .tab-btn.active { background: var(--surface-2); color: var(--text); border-color: var(--red); }
   .level-seg { display: none; }
   .level-seg.active { display: block; }
-  .chart-controls { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
-  .chart-group { display: flex; gap: 6px; }
+  .chart-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
   .chart-svg { width: 100%; height: 220px; }
   .chart-svg circle { opacity: 0; transition: opacity 0.3s ease; }
   .chart-svg circle.shown { opacity: 0.85; }
@@ -409,13 +78,14 @@ footer {
   }
   .chart-svg polyline.drawn { stroke-dashoffset: 0; }
   .chart-price { font-family: var(--mono); font-size: 24px; color: var(--text); margin-top: 10px; }
-  .chart-price .num { display: inline-block; min-width: 90px; }
+  .chart-price .num { display: inline-block; min-width: 70px; }
   .replay-btn { margin-top: 14px; }
   .bar-chart { display: flex; align-items: flex-end; gap: 14px; height: 160px; margin-top: 20px; }
-  .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+  .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; cursor: pointer; }
   .bar-value { font-family: var(--mono); font-size: 12px; color: var(--text); margin-bottom: 6px; }
-  .bar-fill { width: 100%; background: var(--gradient); border-radius: 6px 6px 0 0; height: 0%; transition: height 0.9s ease; }
+  .bar-fill { width: 100%; background: var(--gradient); border-radius: 6px 6px 0 0; height: 0%; transition: height 0.35s ease; }
   .bar-label { font-family: var(--mono); font-size: 10px; color: var(--text-faint); margin-top: 8px; }
+  .bar-hint { font-size: 12px; color: var(--text-faint); margin-top: 4px; }
   .poll-bar-row { margin-top: 10px; }
   .poll-bar-track { background: var(--surface-2); border-radius: 999px; overflow: hidden; height: 10px; margin-top: 6px; }
   .poll-bar-fill { height: 100%; background: var(--gradient); }
@@ -429,7 +99,7 @@ footer {
   .lb-table td { padding: 10px 8px; border-bottom: 1px solid var(--border); color: var(--text-dim); }
   .lb-table tr.you td { color: var(--text); font-weight: 600; background: var(--gradient-soft); }
   .lb-rank { font-family: var(--mono); color: var(--text-faint); width: 30px; }
-  .audio-controls { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+  .audio-controls { display: flex; align-items: center; gap: 12px; margin: 8px 0 28px; }
   .audio-btn {
     width: 44px; height: 44px; border-radius: 50%; border: none; background: var(--gradient);
     color: #fff; font-size: 16px; cursor: pointer;
@@ -462,124 +132,126 @@ footer {
 </nav>
 
 <header class="wrap kicker-page" style="padding-bottom: 20px;">
-  <div class="demo-banner"><strong>Ceci est une démonstration.</strong> Données fictives, mais chaque mécanique ci-dessous est réellement testable, intégrée directement dans le fil de lecture plutôt qu'empilée à la fin.</div>
+  <div class="demo-banner"><strong>Ceci est une démonstration.</strong> Article réel, widgets réellement testables, intégrés directement dans le fil de lecture.</div>
   <div class="eyebrow">Exemple d'article, format cible</div>
-  <h1>EUR/USD : la décision de la BCE peut-elle casser la tendance ?</h1>
-  <p class="lede">Par Hugo, Market Analyst. Couverture indices et crypto. Article de démonstration.</p>
+  <h1>Le choc qui n'en est peut-être pas un : ce que révèlent vraiment les prix à la production en zone euro</h1>
+  <p class="lede">Les prix à la production accélèrent nettement en zone euro, mais la ventilation des chiffres révèle un choc encore concentré sur l'énergie plutôt qu'une contamination de toute la chaîne productive.</p>
+  <p class="lede" style="font-size:14px;">Par Hugo, Market Analyst. Couverture macro, taux et inflation.</p>
 </header>
 
 <section class="wrap">
 
   <div class="widget">
     <div class="widget-label">Prédiction avant lecture</div>
-    <p style="color: var(--text-dim); margin-bottom: 4px;">Avant de lire l'analyse, où penses-tu que sera l'EUR/USD dans une semaine ?</p>
+    <p style="color: var(--text-dim); margin-bottom: 4px;">Avant de lire l'analyse, penses-tu que cette accélération va pousser la BCE vers un ton plus restrictif ?</p>
     <div class="btn-row-tight" id="predict-buttons">
-      <button class="choice-btn" data-choice="hausse">En hausse</button>
-      <button class="choice-btn" data-choice="stable">Stable</button>
-      <button class="choice-btn" data-choice="baisse">En baisse</button>
+      <button class="choice-btn" data-choice="durcissement">Oui, durcissement</button>
+      <button class="choice-btn" data-choice="transitoire">Non, c'est transitoire</button>
+      <button class="choice-btn" data-choice="incertain">Incertain</button>
     </div>
-    <p id="predict-note" style="font-size: 13px; color: var(--text-faint); margin-top: 10px; display:none;">Ton pronostic est enregistré. On comparera à la fin de l'article.</p>
+    <p id="predict-note" style="font-size: 13px; color: var(--text-faint); margin-top: 10px; display:none;">Ton pronostic est enregistré. On y revient à la fin de l'article.</p>
   </div>
 
   <div class="article-body hidden-until-predict" id="article-body">
 
     <div class="toggle-tabs">
-      <button class="tab-btn active" data-level="debutant">Version débutant</button>
-      <button class="tab-btn" data-level="avance">Version avancée</button>
+      <button class="tab-btn active" data-level="resume">Résumé</button>
+      <button class="tab-btn" data-level="complet">Analyse complète</button>
     </div>
 
-    <div class="audio-controls" style="margin-bottom: 28px;">
+    <div class="audio-controls">
       <button class="audio-btn" id="audio-play">▶</button>
-      <span style="font-size: 13px; color: var(--text-faint);" id="audio-status">Écouter l'article plutôt que de le lire</span>
+      <span style="font-size: 13px; color: var(--text-faint);" id="audio-status">Écouter la version active plutôt que de la lire</span>
     </div>
 
-    <div class="level-seg active" data-level="debutant">
-      <p>La paire EUR/USD évolue autour de 1,0829 cette semaine. Un euro vaut donc environ 1,08 dollar. La Banque Centrale Européenne (BCE) annonce sa décision sur les taux jeudi, l'événement qui devrait le plus bouger le prix cette semaine.</p>
+    <p class="lede-intro">La Banque centrale européenne se retrouve face à un scénario qu'elle redoute par-dessus tout : une inflation de production qui accélère nettement, sans que la demande réelle ne s'effondre pour autant. Un cocktail qui, à première vue, ressemble à ces épisodes où l'inflation se propage durablement dans toute l'économie. Mais un examen plus attentif des chiffres publiés ces derniers jours raconte une histoire différente, et nettement plus rassurante pour l'institution de Francfort.</p>
+
+    <div class="level-seg active" data-level="resume">
+      <p>Les prix à la production ont bondi à 5,9% en zone euro en mai, au-dessus des attentes, ravivant la crainte d'une inflation qui se propage à toute l'économie.</p>
     </div>
-    <div class="level-seg" data-level="avance">
-      <p>L'EUR/USD consolide sous la résistance de 1,0850 après un rebond depuis le support hebdomadaire à 1,0765. Le marché price actuellement environ 65% de probabilité d'un statu quo de la BCE jeudi.</p>
+    <div class="level-seg" data-level="complet">
+      <h3>Un chiffre qui interpelle</h3>
+      <p>Les prix à la production de la zone euro ont bondi à 5,9% en glissement annuel en mai, dépassant le consensus de 5,7% et accélérant nettement par rapport aux 5,0% du mois précédent. Sur une base mensuelle, la hausse s'est établie à 0,2%, également au-dessus des attentes. Pris isolément, ce chiffre a de quoi inquiéter. Une accélération de cette ampleur, si elle se propageait à l'ensemble des coûts de production, ferait craindre une inflation collante, difficile à déloger par la politique monétaire classique. C'est précisément le scénario que les banquiers centraux redoutent le plus : une inflation qui ne se limite plus à un choc identifiable et transitoire, mais qui s'infiltre dans les marges, les salaires et les prix finaux de manière persistante.</p>
     </div>
 
     <div class="widget widget-inline">
-      <div class="widget-label">Graphique interactif</div>
-      <div class="chart-controls">
-        <div class="chart-group" id="asset-buttons">
-          <button class="choice-btn selected" data-asset="EURUSD">EUR/USD</button>
-          <button class="choice-btn" data-asset="BTCUSD">BTC/USD</button>
-          <button class="choice-btn" data-asset="XAUUSD">XAU/USD</button>
-        </div>
-        <div class="chart-group" id="tf-buttons">
-          <button class="choice-btn selected" data-tf="1D">1J</button>
-          <button class="choice-btn" data-tf="1W">1S</button>
-          <button class="choice-btn" data-tf="1M">1M</button>
-        </div>
+      <div class="widget-label">Graphique interactif : ventilation de l'inflation</div>
+      <div class="chart-controls" id="series-buttons">
+        <button class="choice-btn selected" data-series="ppi">Prix à la production</button>
+        <button class="choice-btn" data-series="energie">Énergie (IPCH)</button>
+        <button class="choice-btn" data-series="core">Core (hors énergie)</button>
       </div>
       <svg class="chart-svg" id="chart-svg" viewBox="0 0 600 220" preserveAspectRatio="none"></svg>
-      <div class="chart-price">Dernier prix : <span class="num" id="chart-price-num">0.0000</span></div>
+      <div class="chart-price">Dernière valeur : <span class="num" id="chart-price-num">0.0</span>%</div>
       <button class="choice-btn replay-btn" id="chart-replay">↺ Rejouer l'animation</button>
     </div>
 
-    <div class="level-seg active" data-level="debutant">
-      <p>Si la BCE augmente ses taux, l'euro devient généralement plus attractif et peut monter. Si elle les baisse, l'inverse peut se produire. Voici l'historique des dernières décisions de taux, pour comprendre la tendance en cours.</p>
+    <div class="level-seg active" data-level="resume">
+      <p>Mais le détail des chiffres change la lecture : l'énergie explique l'essentiel du choc, pendant que les biens industriels hors énergie restent quasi stables, à seulement 0,9%.</p>
     </div>
-    <div class="level-seg" data-level="avance">
-      <p>Un biais accommodant dans la forward guidance pourrait peser sur le carry différentiel EUR/USD à court terme, même en l'absence de mouvement de taux directeur jeudi. Le cycle de baisse engagé depuis le début d'année reste le fil conducteur.</p>
+    <div class="level-seg" data-level="complet">
+      <h3>Ce que la ventilation des chiffres révèle réellement</h3>
+      <p>En y regardant de plus près, cette accélération reste très largement concentrée sur un seul poste : l'énergie. Dans la ventilation de l'inflation harmonisée de la zone euro, l'énergie affichait encore 10,8% en glissement annuel en mai, stable par rapport à avril. À titre de comparaison, les biens industriels hors énergie, la composante qui reflète le plus directement la répercussion des coûts de production dans les prix finaux, ne progressaient que de 0,9%, contre 0,8% en avril. Une variation de seulement un dixième de point. Si la chaîne de production dans son ensemble était réellement contaminée par les pressions inflationnistes, c'est cette catégorie qui devrait accélérer fortement. Ce n'est pas le cas. Le contraste entre les deux dynamiques, une énergie à deux chiffres et une composante industrielle hors énergie qui stagne, indique que le choc reste concentré sur un poste précis plutôt que diffusé dans l'ensemble de l'appareil productif. Ce même schéma se retrouve dans l'évolution de l'inflation core, qui exclut l'énergie et l'alimentation. Cette mesure est montée à 2,6% en mai, contre 2,2% en avril, une hausse qui a pu être interprétée comme un signal de propagation. Mais les toutes premières estimations de juin viennent nuancer cette lecture : le core reflue déjà à 2,4%, au moment même où l'énergie retombe de 10,8% à 8,7% en estimation flash. Ce mouvement synchronisé entre l'énergie et le reste de l'économie suggère que la contamination, si elle existe, reste faible et réversible dès que la pression sur les matières premières énergétiques se relâche.</p>
+      <h3>L'origine du choc, et pourquoi elle compte</h3>
+      <p>Ce choc énergétique n'est pas une dérive progressive de la chaîne de valeur, mais un événement daté et identifiable. L'inflation énergétique de la zone euro est passée de 5,1% en mars à 10,9% en avril, un bond brutal directement lié aux tensions du conflit au Moyen-Orient et à leurs répercussions sur les marchés pétroliers et gaziers. Cette distinction a une importance considérable pour la conduite de la politique monétaire. Une inflation qui naît d'un choc énergétique exogène et identifiable appelle une réponse différente d'une inflation qui se serait diffusée durablement dans les coûts de production de l'ensemble de l'économie. Dans le premier cas, la patience monétaire est justifiée, puisque le choc a vocation à se résorber avec la normalisation des prix de l'énergie. Dans le second, une réponse plus dure serait nécessaire, quitte à peser davantage sur la croissance, car il s'agirait alors de rompre une dynamique auto-entretenue de hausse des prix.</p>
     </div>
 
     <div class="widget widget-inline">
       <div class="widget-label">Graphique interactif : taux de dépôt de la BCE</div>
-      <p style="color: var(--text-dim); margin: 0;">Pas un graphique de trading cette fois : la trajectoire du taux sur les 6 dernières réunions.</p>
+      <p style="color: var(--text-dim); margin: 0 0 4px;">Pas un graphique de trading cette fois : la trajectoire du taux sur les 6 dernières réunions.</p>
+      <p class="bar-hint">Passe la souris sur une barre pour révéler le taux de la réunion correspondante.</p>
       <div class="bar-chart" id="rate-bars"></div>
-      <button class="choice-btn replay-btn" id="rate-replay">↺ Rejouer l'animation</button>
     </div>
 
-    <div class="level-seg active" data-level="debutant">
-      <p>Le niveau à surveiller à la hausse est 1,0850. Celui à la baisse est 1,0780. Tant que le prix reste entre les deux, la tendance de fond ne change pas vraiment.</p>
+    <div class="level-seg active" data-level="resume">
+      <p>Le reste de l'économie ne montre pas de signe de dégradation générale : consommation et sentiment des investisseurs se sont même redressés en parallèle.</p>
     </div>
-    <div class="level-seg" data-level="avance">
-      <p>Sur le plan technique, le RSI journalier évolue autour de 58, sans divergence marquée. Une clôture au-dessus de 1,0850 ouvrirait la voie vers 1,0900. Un rejet confirmerait un retour vers la zone de demande à 1,0780.</p>
+    <div class="level-seg" data-level="complet">
+      <h3>Un cocktail conjoncturel plus favorable qu'il n'y paraît</h3>
+      <p>Le reste des données publiées ces derniers jours dessine un paysage économique loin d'être uniformément dégradé, ce qui renforce l'hypothèse d'un choc transitoire plutôt que d'une dynamique inflationniste auto-entretenue. Les ventes au détail de la zone euro ont progressé de 1,6% en glissement annuel en mai, au-dessus du consensus de 1,5% et en nette accélération par rapport aux 0,9% révisés du mois précédent. Un signal de résilience du consommateur, à rebours de l'idée d'une demande qui s'étiolerait face à la hausse des coûts. Le sentiment des investisseurs, mesuré par l'indice Sentix, a bondi à moins 3,1 points en juillet, très au-dessus du consensus de moins 14,5 et loin devant les moins 13,4 points de juin. L'indice reste en territoire pessimiste, mais l'amplitude du rebond dépasse largement une simple amélioration marginale. Les commandes industrielles allemandes avaient déjà rebondi de 1,9% en mai, dépassant nettement l'estimation de 1,1% des économistes, après une révision à moins 3,2% en avril. Un signe supplémentaire que l'affaiblissement économique lié au choc du printemps commence à se dissiper.</p>
     </div>
 
     <div class="widget widget-inline">
       <div class="widget-label">Sondage en direct</div>
-      <p style="color: var(--text-dim); margin: 0;">Penses-tu que l'EUR/USD va monter cette semaine ?</p>
+      <p style="color: var(--text-dim); margin: 0;">Selon toi, ce choc inflationniste est-il transitoire ou plus structurel ?</p>
       <div class="btn-row-tight" id="poll-buttons">
-        <button class="choice-btn" data-vote="oui">Oui</button>
-        <button class="choice-btn" data-vote="non">Non</button>
+        <button class="choice-btn" data-vote="transitoire">Transitoire</button>
+        <button class="choice-btn" data-vote="structurel">Plus structurel</button>
       </div>
       <div class="poll-bar-row">
-        <div class="poll-label"><span>Oui</span><span id="poll-oui-pct">62%</span></div>
+        <div class="poll-label"><span>Transitoire</span><span id="poll-oui-pct">62%</span></div>
         <div class="poll-bar-track"><div class="poll-bar-fill" id="poll-oui-bar" style="width:62%;"></div></div>
       </div>
       <div class="poll-bar-row">
-        <div class="poll-label"><span>Non</span><span id="poll-non-pct">38%</span></div>
+        <div class="poll-label"><span>Plus structurel</span><span id="poll-non-pct">38%</span></div>
         <div class="poll-bar-track"><div class="poll-bar-fill" id="poll-non-bar" style="width:38%; background: var(--text-faint);"></div></div>
       </div>
     </div>
 
-    <div class="level-seg active" data-level="debutant">
-      <p>En résumé : la décision de jeudi est le vrai catalyseur de la semaine, le reste n'est que du bruit autour des deux niveaux cités plus haut.</p>
+    <div class="level-seg active" data-level="resume">
+      <p>Pour la BCE, tout indique un choc énergétique concentré et réversible plutôt qu'une contamination durable, même si la vigilance reste de mise sur les prochaines publications.</p>
     </div>
-    <div class="level-seg" data-level="avance">
-      <p>Le catalyseur reste la BCE jeudi. Hors surprise macro américaine d'ici là, la paire devrait rester range-bound entre les deux niveaux cités.</p>
+    <div class="level-seg" data-level="complet">
+      <h3>Ce que cela signifie pour la BCE</h3>
+      <p>L'enjeu pour la Banque centrale européenne n'est donc pas seulement de mesurer l'ampleur de l'accélération des prix à la production, mais d'en identifier la nature. Les données actuelles penchent clairement vers un choc énergétique concentré et transitoire plutôt que vers une contamination structurelle de la chaîne de production. La stagnation des biens industriels hors énergie, le reflux synchronisé du core avec l'énergie dès juin, et l'origine clairement identifiable du choc au conflit du Moyen-Orient forment un faisceau d'indices cohérent. Cela ne signifie pas que la vigilance doive se relâcher. Un choc énergétique qui se prolonge peut, avec le temps, se diffuser dans les anticipations d'inflation et dans les négociations salariales, transformant un phénomène transitoire en dynamique plus durable. C'est précisément ce que la BCE devra surveiller dans les prochaines publications, en particulier l'évolution des biens industriels hors énergie et la trajectoire des prix du pétrole. Pour l'instant, le scénario le plus cohérent avec les données disponibles reste celui d'un choc identifiable et réversible, pas celui d'une inflation qui se serait infiltrée durablement dans l'ensemble de l'appareil productif européen.</p>
     </div>
 
     <div class="widget">
       <div class="widget-label">Quiz de fin d'article</div>
       <div class="quiz-question">
-        <p class="q">1. Quel niveau technique agit comme résistance selon l'article ?</p>
+        <p class="q">1. Quelle composante reste quasiment stable malgré le bond des prix à la production ?</p>
         <div class="quiz-options">
-          <label class="quiz-option"><input type="radio" name="q1" value="wrong1"> 1,0780</label>
-          <label class="quiz-option"><input type="radio" name="q1" value="correct"> 1,0850</label>
-          <label class="quiz-option"><input type="radio" name="q1" value="wrong2"> 1,0900</label>
+          <label class="quiz-option"><input type="radio" name="q1" value="correct"> Les biens industriels hors énergie</label>
+          <label class="quiz-option"><input type="radio" name="q1" value="wrong1"> L'énergie</label>
+          <label class="quiz-option"><input type="radio" name="q1" value="wrong2"> Les services financiers</label>
         </div>
       </div>
       <div class="quiz-question">
-        <p class="q">2. Quel événement macro est cité comme principal moteur ?</p>
+        <p class="q">2. D'où vient principalement le choc énergétique évoqué dans l'article ?</p>
         <div class="quiz-options">
-          <label class="quiz-option"><input type="radio" name="q2" value="wrong1"> Emploi américain</label>
-          <label class="quiz-option"><input type="radio" name="q2" value="correct"> Décision de la BCE</label>
-          <label class="quiz-option"><input type="radio" name="q2" value="wrong2"> Inflation au Royaume-Uni</label>
+          <label class="quiz-option"><input type="radio" name="q2" value="wrong1"> Une pénurie de main-d'œuvre</label>
+          <label class="quiz-option"><input type="radio" name="q2" value="correct"> Le conflit au Moyen-Orient</label>
+          <label class="quiz-option"><input type="radio" name="q2" value="wrong2"> Une hausse de la demande chinoise</label>
         </div>
       </div>
       <button class="btn btn-primary" id="quiz-submit" style="border:none; cursor:pointer;">Valider le quiz</button>
@@ -629,18 +301,17 @@ footer {
     btn.addEventListener('click', () => {
       predictButtons.forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
-      userPrediction = btn.dataset.choice;
+      userPrediction = btn.textContent;
       articleBody.classList.add('revealed');
       predictNote.style.display = 'block';
       if (!alreadyRevealed) {
         alreadyRevealed = true;
-        setTimeout(playPriceAnimation, 300);
-        setTimeout(playRateAnimation, 500);
+        setTimeout(playChartAnimation, 300);
       }
     });
   });
 
-  // Beginner / advanced toggle (multiple segments share the same data-level)
+  // Résumé / analyse complète toggle
   const tabBtns = document.querySelectorAll('.tab-btn');
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -651,35 +322,21 @@ footer {
     });
   });
 
-  // Chart data (fake)
-  const chartData = {
-    EURUSD: {
-      '1D': [1.0812,1.0808,1.0815,1.0820,1.0817,1.0823,1.0828,1.0825,1.0831,1.0829],
-      '1W': [1.0765,1.0780,1.0798,1.0790,1.0805,1.0812,1.0829],
-      '1M': [1.0690,1.0715,1.0702,1.0740,1.0725,1.0760,1.0748,1.0780,1.0765,1.0795,1.0810,1.0829]
-    },
-    BTCUSD: {
-      '1D': [64200,64350,64100,64500,64620,64480,64750,64900,64830,65010],
-      '1W': [61200,62400,61800,63100,63900,64200,65010],
-      '1M': [58000,59200,57600,60100,61300,60700,62000,61500,63200,62800,64100,65010]
-    },
-    XAUUSD: {
-      '1D': [2385,2388,2391,2389,2394,2398,2396,2401,2405,2403],
-      '1W': [2360,2368,2372,2380,2385,2394,2403],
-      '1M': [2310,2325,2318,2340,2335,2352,2348,2365,2358,2378,2390,2403]
-    }
+  // Chart data: real figures pulled directly from the article
+  const seriesData = {
+    ppi:    { points: [5.0, 5.9], labels: ['Avr', 'Mai'] },
+    energie:{ points: [5.1, 10.9, 10.8, 8.7], labels: ['Mars', 'Avr', 'Mai', 'Juin (flash)'] },
+    core:   { points: [2.2, 2.6, 2.4], labels: ['Avr', 'Mai', 'Juin (flash)'] }
   };
-  const decimals = { EURUSD: 4, BTCUSD: 0, XAUUSD: 2 };
-  let currentAsset = 'EURUSD';
-  let currentTf = '1D';
+  let currentSeries = 'ppi';
 
   function buildChart() {
-    const data = chartData[currentAsset][currentTf];
+    const data = seriesData[currentSeries].points;
     const svg = document.getElementById('chart-svg');
     const w = 600, h = 220, pad = 10;
     const min = Math.min(...data), max = Math.max(...data);
     const range = (max - min) || 1;
-    const stepX = (w - pad * 2) / (data.length - 1);
+    const stepX = data.length > 1 ? (w - pad * 2) / (data.length - 1) : 0;
     const coords = data.map((v, i) => {
       const x = pad + i * stepX;
       const y = h - pad - ((v - min) / range) * (h - pad * 2);
@@ -692,18 +349,17 @@ footer {
     return data;
   }
 
-  function playPriceAnimation() {
+  function playChartAnimation() {
     const data = buildChart();
     const line = document.getElementById('chart-line');
-    // force reflow so the transition replays each time
     line.classList.remove('drawn');
     void line.getBoundingClientRect();
     requestAnimationFrame(() => line.classList.add('drawn'));
 
-    document.querySelectorAll('.chart-dot').forEach(dot => dot.classList.remove('shown'));
     const dots = document.querySelectorAll('.chart-dot');
     dots.forEach((dot, i) => {
-      setTimeout(() => dot.classList.add('shown'), 120 * i + 150);
+      dot.classList.remove('shown');
+      setTimeout(() => dot.classList.add('shown'), 150 * i + 150);
     });
 
     const numEl = document.getElementById('chart-price-num');
@@ -714,32 +370,24 @@ footer {
     function tick(now) {
       const progress = Math.min((now - startTime) / duration, 1);
       const current = start + (end - start) * progress;
-      numEl.textContent = current.toFixed(decimals[currentAsset]);
+      numEl.textContent = current.toFixed(1);
       if (progress < 1) requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
   }
 
-  document.querySelectorAll('#asset-buttons .choice-btn').forEach(btn => {
+  document.querySelectorAll('#series-buttons .choice-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('#asset-buttons .choice-btn').forEach(b => b.classList.remove('selected'));
+      document.querySelectorAll('#series-buttons .choice-btn').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
-      currentAsset = btn.dataset.asset;
-      playPriceAnimation();
+      currentSeries = btn.dataset.series;
+      playChartAnimation();
     });
   });
-  document.querySelectorAll('#tf-buttons .choice-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('#tf-buttons .choice-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      currentTf = btn.dataset.tf;
-      playPriceAnimation();
-    });
-  });
-  document.getElementById('chart-replay').addEventListener('click', playPriceAnimation);
+  document.getElementById('chart-replay').addEventListener('click', playChartAnimation);
   buildChart();
 
-  // Macro bar chart: BCE deposit rate history (not a trading chart)
+  // Macro bar chart: BCE deposit rate history, revealed on hover
   const rateData = [
     { label: 'Jan', value: 4.00 },
     { label: 'Mar', value: 3.75 },
@@ -749,48 +397,53 @@ footer {
     { label: 'Oct', value: 3.25 }
   ];
   const rateMax = 4.5;
+
+  function animateBarNumber(el, from, to, duration) {
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      el.textContent = (from + (to - from) * p).toFixed(2) + '%';
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
   function buildBars() {
     const wrap = document.getElementById('rate-bars');
     wrap.innerHTML = rateData.map((d, i) =>
-      '<div class="bar-item">' +
-        '<div class="bar-value" data-i="' + i + '">0.00%</div>' +
-        '<div class="bar-fill" data-i="' + i + '" style="height:0%;"></div>' +
+      '<div class="bar-item" data-i="' + i + '">' +
+        '<div class="bar-value">0.00%</div>' +
+        '<div class="bar-fill" style="height:0%;"></div>' +
         '<div class="bar-label">' + d.label + '</div>' +
       '</div>'
     ).join('');
-  }
-  function playRateAnimation() {
-    buildBars();
-    rateData.forEach((d, i) => {
-      const fill = document.querySelector('.bar-fill[data-i="' + i + '"]');
-      const valueEl = document.querySelector('.bar-value[data-i="' + i + '"]');
-      setTimeout(() => {
+    document.querySelectorAll('.bar-item').forEach((item) => {
+      const i = parseInt(item.dataset.i, 10);
+      const d = rateData[i];
+      const fill = item.querySelector('.bar-fill');
+      const valueEl = item.querySelector('.bar-value');
+      item.addEventListener('mouseenter', () => {
         fill.style.height = ((d.value / rateMax) * 100) + '%';
-        const duration = 700;
-        const startTime = performance.now();
-        function tick(now) {
-          const progress = Math.min((now - startTime) / duration, 1);
-          valueEl.textContent = (d.value * progress).toFixed(2) + '%';
-          if (progress < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-      }, i * 150);
+        animateBarNumber(valueEl, 0, d.value, 450);
+      });
+      item.addEventListener('mouseleave', () => {
+        fill.style.height = '0%';
+        valueEl.textContent = '0.00%';
+      });
     });
   }
-  document.getElementById('rate-replay').addEventListener('click', playRateAnimation);
   buildBars();
 
   // Live poll
-  let pollCounts = { oui: 132, non: 82 };
+  let pollCounts = { transitoire: 132, structurel: 82 };
   let hasVoted = false;
   function renderPoll() {
-    const total = pollCounts.oui + pollCounts.non;
-    const ouiPct = Math.round((pollCounts.oui / total) * 100);
-    const nonPct = 100 - ouiPct;
-    document.getElementById('poll-oui-pct').textContent = ouiPct + '%';
-    document.getElementById('poll-non-pct').textContent = nonPct + '%';
-    document.getElementById('poll-oui-bar').style.width = ouiPct + '%';
-    document.getElementById('poll-non-bar').style.width = nonPct + '%';
+    const total = pollCounts.transitoire + pollCounts.structurel;
+    const pct = Math.round((pollCounts.transitoire / total) * 100);
+    document.getElementById('poll-oui-pct').textContent = pct + '%';
+    document.getElementById('poll-non-pct').textContent = (100 - pct) + '%';
+    document.getElementById('poll-oui-bar').style.width = pct + '%';
+    document.getElementById('poll-non-bar').style.width = (100 - pct) + '%';
   }
   document.querySelectorAll('#poll-buttons .choice-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -814,7 +467,8 @@ footer {
       audioStatus.textContent = 'Lecture audio non supportée par ce navigateur';
       return;
     }
-    const activeText = Array.from(document.querySelectorAll('.level-seg.active')).map(el => el.innerText).join(' ');
+    const introText = document.querySelector('.lede-intro').innerText;
+    const activeText = introText + ' ' + Array.from(document.querySelectorAll('.level-seg.active')).map(el => el.innerText).join(' ');
     if (isSpeaking) {
       window.speechSynthesis.pause();
       audioBtn.textContent = '▶';
@@ -850,7 +504,7 @@ footer {
     result.style.display = 'block';
     let predictionLine = '';
     if (userPrediction) {
-      predictionLine = ' Ton pronostic de départ était "' + userPrediction + '", à comparer avec le call de l\'analyste.';
+      predictionLine = ' Ton pronostic de départ était "' + userPrediction + '", à comparer avec la lecture de l\'article.';
     }
     result.textContent = score + '/2 bonnes réponses. +' + (score * 10 + 5) + ' points de fidélité crédités.' + predictionLine;
   });
@@ -858,7 +512,7 @@ footer {
   // Social share
   const pageUrl = window.location.href;
   document.getElementById('share-x').addEventListener('click', () => {
-    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent('EUR/USD : la BCE peut-elle casser la tendance ?') + '&url=' + encodeURIComponent(pageUrl), '_blank');
+    window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent('Prix à la production en zone euro : un choc concentré sur l\'énergie ?') + '&url=' + encodeURIComponent(pageUrl), '_blank');
     document.getElementById('share-toast').style.display = 'block';
   });
   document.getElementById('share-linkedin').addEventListener('click', () => {
