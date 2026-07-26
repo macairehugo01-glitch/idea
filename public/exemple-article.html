@@ -6,7 +6,339 @@
 <title>Exemple d'article interactif : R&D RaiseFX</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css">
+<style>
+:root {
+  --bg: #0a0710;
+  --bg-soft: #100b1a;
+  --surface: #170f13;
+  --surface-2: #1e1317;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --text: #f4f0ee;
+  --text-dim: #c4a3a9;
+  --text-faint: #806066;
+  --red: #e8384f;
+  --bordeaux: #6b1f2a;
+  --gradient: linear-gradient(135deg, #e8384f 0%, #6b1f2a 100%);
+  --gradient-soft: linear-gradient(135deg, rgba(232, 56, 79, 0.14) 0%, rgba(107, 31, 42, 0.20) 100%);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: "IBM Plex Sans", -apple-system, sans-serif;
+  --display: "Space Grotesk", var(--sans);
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(107, 31, 42, 0.22), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 10%, rgba(232, 56, 79, 0.10), transparent);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 7, 16, 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: 0.01em;
+}
+.brand .orb-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gradient);
+  box-shadow: 0 0 14px rgba(234, 58, 95, 0.55);
+  flex-shrink: 0;
+}
+.brand .rd {
+  color: var(--text-faint);
+  font-weight: 400;
+  font-family: var(--mono);
+  font-size: 13px;
+}
+.nav-links {
+  display: flex;
+  gap: 28px;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+.nav-links a { transition: color 0.15s ease; position: relative; }
+.nav-links a:hover { color: var(--text); }
+.nav-links a.active { color: var(--text); }
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -20px;
+  height: 2px;
+  background: var(--gradient);
+}
+.nav-toggle { display: none; }
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+}
+
+/* ---------- Hero orb (signature element) ---------- */
+.orb-field {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #ff8f9c 0%, var(--red) 30%, var(--bordeaux) 74%, #200a0d 100%);
+  box-shadow:
+    0 0 90px rgba(107, 31, 42, 0.5),
+    0 0 160px rgba(232, 56, 79, 0.22),
+    inset -18px -18px 50px rgba(0,0,0,0.45);
+  animation: spin 46s linear infinite;
+}
+.orb-ring {
+  position: absolute;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 50%;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* ---------- Sections ---------- */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--gradient);
+}
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  margin: 0 0 16px;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: clamp(34px, 5vw, 58px); line-height: 1.06; }
+h2 { font-size: clamp(24px, 3vw, 34px); line-height: 1.15; }
+h3 { font-size: 18px; }
+p { color: var(--text-dim); margin: 0 0 16px; }
+.lede { font-size: 18px; color: var(--text-dim); max-width: 640px; }
+
+section { padding: 88px 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
+
+.hero {
+  padding: 72px 0 60px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+}
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; }
+}
+.hero-visual {
+  position: relative;
+  height: 340px;
+}
+
+.btn-row { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--border-strong);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.btn-primary { background: var(--gradient); border: none; color: #fff; }
+.btn:hover { transform: translateY(-1px); }
+.btn-ghost:hover { border-color: rgba(255,255,255,0.3); }
+
+/* ---------- Cards / grids ---------- */
+.grid { display: grid; gap: 20px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 780px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px;
+}
+.card:hover { border-color: var(--border-strong); }
+
+.tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--text-dim);
+}
+
+/* ---------- Benchmark table ---------- */
+.bench-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: 12px;
+}
+.bench-table th, .bench-table td {
+  padding: 16px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.bench-table th {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+  font-weight: 500;
+}
+.bench-table td.row-label {
+  font-family: var(--display);
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+.dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.dot-yes { background: #34d399; }
+.dot-partial { background: #f5b942; }
+.dot-no { background: #4a4058; }
+.bench-table .broker-us td.row-label { color: transparent; background: var(--gradient); -webkit-background-clip: text; background-clip: text; }
+
+.table-scroll { overflow-x: auto; }
+
+/* ---------- Gap / formation blocks ---------- */
+.gap-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--border);
+}
+@media (max-width: 780px) { .gap-item { grid-template-columns: 1fr; } }
+.gap-col-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+.gap-col-label.have { color: var(--text-faint); }
+.gap-col-label.need { color: var(--red); }
+
+/* ---------- Video page ---------- */
+.video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.video-frame video { width: 100%; height: 100%; object-fit: cover; }
+.video-placeholder {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 14px;
+  color: var(--text-faint);
+  font-family: var(--mono);
+  font-size: 13px;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ---------- Roadmap / axes ---------- */
+.axis {
+  display: flex;
+  gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+}
+.axis-num {
+  font-family: var(--display);
+  font-size: 28px;
+  color: var(--text-faint);
+  min-width: 44px;
+}
+.axis.impact-high .axis-num { color: var(--red); }
+
+/* ---------- Footer ---------- */
+footer {
+  padding: 48px 0 60px;
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 13px;
+}
+
+.kicker-page {
+  padding: 140px 0 40px;
+}
+
+</style>
 <style>
   .demo-banner {
     background: var(--gradient-soft);
@@ -155,8 +487,9 @@
   <div class="article-body hidden-until-predict" id="article-body">
 
     <div class="toggle-tabs">
-      <button class="tab-btn active" data-level="resume">Résumé</button>
-      <button class="tab-btn" data-level="complet">Analyse complète</button>
+      <button class="tab-btn active" data-level="rapide">Mode rapide</button>
+      <button class="tab-btn" data-level="complet">Mode complet</button>
+      <button class="tab-btn" data-level="analyse">Mode analyse 🔒</button>
     </div>
 
     <div class="audio-controls">
@@ -166,7 +499,7 @@
 
     <p class="lede-intro">La Banque centrale européenne se retrouve face à un scénario qu'elle redoute par-dessus tout : une inflation de production qui accélère nettement, sans que la demande réelle ne s'effondre pour autant. Un cocktail qui, à première vue, ressemble à ces épisodes où l'inflation se propage durablement dans toute l'économie. Mais un examen plus attentif des chiffres publiés ces derniers jours raconte une histoire différente, et nettement plus rassurante pour l'institution de Francfort.</p>
 
-    <div class="level-seg active" data-level="resume">
+    <div class="level-seg active" data-level="rapide">
       <p>Les prix à la production ont bondi à 5,9% en zone euro en mai, au-dessus des attentes, ravivant la crainte d'une inflation qui se propage à toute l'économie.</p>
     </div>
     <div class="level-seg" data-level="complet">
@@ -186,7 +519,7 @@
       <button class="choice-btn replay-btn" id="chart-replay">↺ Rejouer l'animation</button>
     </div>
 
-    <div class="level-seg active" data-level="resume">
+    <div class="level-seg active" data-level="rapide">
       <p>Mais le détail des chiffres change la lecture : l'énergie explique l'essentiel du choc, pendant que les biens industriels hors énergie restent quasi stables, à seulement 0,9%.</p>
     </div>
     <div class="level-seg" data-level="complet">
@@ -203,7 +536,7 @@
       <div class="bar-chart" id="rate-bars"></div>
     </div>
 
-    <div class="level-seg active" data-level="resume">
+    <div class="level-seg active" data-level="rapide">
       <p>Le reste de l'économie ne montre pas de signe de dégradation générale : consommation et sentiment des investisseurs se sont même redressés en parallèle.</p>
     </div>
     <div class="level-seg" data-level="complet">
@@ -228,12 +561,23 @@
       </div>
     </div>
 
-    <div class="level-seg active" data-level="resume">
+    <div class="level-seg active" data-level="rapide">
       <p>Pour la BCE, tout indique un choc énergétique concentré et réversible plutôt qu'une contamination durable, même si la vigilance reste de mise sur les prochaines publications.</p>
     </div>
     <div class="level-seg" data-level="complet">
       <h3>Ce que cela signifie pour la BCE</h3>
       <p>L'enjeu pour la Banque centrale européenne n'est donc pas seulement de mesurer l'ampleur de l'accélération des prix à la production, mais d'en identifier la nature. Les données actuelles penchent clairement vers un choc énergétique concentré et transitoire plutôt que vers une contamination structurelle de la chaîne de production. La stagnation des biens industriels hors énergie, le reflux synchronisé du core avec l'énergie dès juin, et l'origine clairement identifiable du choc au conflit du Moyen-Orient forment un faisceau d'indices cohérent. Cela ne signifie pas que la vigilance doive se relâcher. Un choc énergétique qui se prolonge peut, avec le temps, se diffuser dans les anticipations d'inflation et dans les négociations salariales, transformant un phénomène transitoire en dynamique plus durable. C'est précisément ce que la BCE devra surveiller dans les prochaines publications, en particulier l'évolution des biens industriels hors énergie et la trajectoire des prix du pétrole. Pour l'instant, le scénario le plus cohérent avec les données disponibles reste celui d'un choc identifiable et réversible, pas celui d'une inflation qui se serait infiltrée durablement dans l'ensemble de l'appareil productif européen.</p>
+    </div>
+
+    <div class="widget" id="vip-box" style="display:none;">
+      <div class="widget-label">Analyse VIP, accès net deposit</div>
+      <div id="vip-locked">
+        <p style="color: var(--text-dim); margin:0;">Ce niveau d'analyse est réservé aux clients dont le net deposit dépasse un certain seuil chez RaiseFX.</p>
+        <button class="choice-btn" id="vip-unlock" style="margin-top:14px;">Simuler un compte VIP (démo)</button>
+      </div>
+      <div id="vip-content" style="display:none;">
+        <p style="color: var(--text-dim); margin:0;">Conviction interne de l'équipe R&amp;D : 7/10 sur un maintien du statu quo jeudi. Si la BCE surprend par un ton plus dur, le scénario à surveiller en premier est un retest rapide de 1,0765 sur l'EUR/USD, avec une réaction probablement plus marquée sur les paires liées aux devises commodities.</p>
+      </div>
     </div>
 
     <div class="widget">
@@ -311,15 +655,24 @@
     });
   });
 
-  // Résumé / analyse complète toggle
+  // Mode rapide / complet / analyse toggle
   const tabBtns = document.querySelectorAll('.tab-btn');
+  const vipBox = document.getElementById('vip-box');
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       tabBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      const level = btn.dataset.level;
+      const segLevel = level === 'analyse' ? 'complet' : level;
       document.querySelectorAll('.level-seg').forEach(seg => seg.classList.remove('active'));
-      document.querySelectorAll('.level-seg[data-level="' + btn.dataset.level + '"]').forEach(seg => seg.classList.add('active'));
+      document.querySelectorAll('.level-seg[data-level="' + segLevel + '"]').forEach(seg => seg.classList.add('active'));
+      vipBox.style.display = level === 'analyse' ? 'block' : 'none';
     });
+  });
+
+  document.getElementById('vip-unlock').addEventListener('click', () => {
+    document.getElementById('vip-locked').style.display = 'none';
+    document.getElementById('vip-content').style.display = 'block';
   });
 
   // Chart data: real figures pulled directly from the article
@@ -423,12 +776,10 @@
       const fill = item.querySelector('.bar-fill');
       const valueEl = item.querySelector('.bar-value');
       item.addEventListener('mouseenter', () => {
+        if (item.dataset.revealed === 'true') return;
+        item.dataset.revealed = 'true';
         fill.style.height = ((d.value / rateMax) * 100) + '%';
         animateBarNumber(valueEl, 0, d.value, 450);
-      });
-      item.addEventListener('mouseleave', () => {
-        fill.style.height = '0%';
-        valueEl.textContent = '0.00%';
       });
     });
   }
