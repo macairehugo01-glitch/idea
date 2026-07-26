@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formation, aperçu client : R&D RaiseFX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .demo-banner {
+    background: var(--gradient-soft);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+  }
+  .demo-banner strong { color: var(--text); }
+
+  .quiz-teaser {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    background: var(--gradient-soft); border: 1px solid var(--border-strong); border-radius: var(--radius);
+    padding: 22px 26px; margin-bottom: 40px;
+  }
+  .quiz-teaser h3 { margin: 0 0 4px; }
+  .quiz-teaser p { margin: 0; color: var(--text-dim); font-size: 14px; }
+
+  .module-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 900px) { .module-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .module-grid { grid-template-columns: 1fr; } }
+
+  .module-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 22px; transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .module-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .module-level {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border-strong); color: var(--text-dim);
+    display: inline-block; margin-bottom: 12px;
+  }
+  .module-card h3 { font-size: 16px; margin: 0 0 8px; }
+  .module-card p { font-size: 13px; color: var(--text-dim); margin: 0 0 14px; line-height: 1.5; }
+  .module-meta { font-size: 12px; color: var(--text-faint); font-family: var(--mono); }
+
+  .back-link { font-size: 13px; color: var(--text-faint); display:inline-block; margin-bottom:18px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="orb-dot"></span>RaiseFX <span class="rd">/ R&amp;D</span></div>
+    <div class="nav-links">
+      <a href="index.html">Vue d'ensemble</a>
+      <a href="articles.html">Benchmark</a>
+      <a href="webinaire.html">Nos profils</a>
+      <a href="formation.html">Fondations</a>
+      <a href="idees.html">Idées</a>
+      <a href="exemple-accueil.html">Aperçu client</a>
+    </div>
+  </div>
+</nav>
+
+<header class="wrap kicker-page" style="padding-bottom: 20px;">
+  <a href="exemple-accueil.html" class="back-link">← Retour à l'accueil articles</a>
+  <div class="demo-banner"><strong>Ceci est une démonstration.</strong> Aperçu du hub formation, séparé du flux d'articles.</div>
+  <div class="eyebrow">Espace recherche RaiseFX, formation</div>
+  <h1>Formation</h1>
+  <p class="lede">Des modules courts, classés par stratégie et par niveau, pour progresser à ton rythme.</p>
+</header>
+
+<section class="wrap">
+
+  <div class="quiz-teaser">
+    <div>
+      <h3>Tu ne sais pas par où commencer ?</h3>
+      <p>Un quiz de 2 minutes pour trouver la stratégie, l'actif et le format qui te correspondent.</p>
+    </div>
+    <a href="exemple-quiz.html" class="btn btn-primary">Faire le quiz →</a>
+  </div>
+
+  <div class="module-grid">
+    <div class="module-card">
+      <div class="module-level">Débutant</div>
+      <h3>Introduction à l'ICT</h3>
+      <p>Les bases de la lecture de structure de marché et des zones de liquidité.</p>
+      <div class="module-meta">Hugo, 12 min</div>
+    </div>
+    <div class="module-card">
+      <div class="module-level">Débutant</div>
+      <h3>Comprendre le risque et le sizing</h3>
+      <p>Comment calculer une taille de position avant de penser à la stratégie.</p>
+      <div class="module-meta">David, 9 min</div>
+    </div>
+    <div class="module-card">
+      <div class="module-level">Intermédiaire</div>
+      <h3>Volume Profile pour débutants</h3>
+      <p>Lire où le volume se concentre réellement plutôt que de suivre le prix seul.</p>
+      <div class="module-meta">Hugo, 15 min</div>
+    </div>
+    <div class="module-card">
+      <div class="module-level">Intermédiaire</div>
+      <h3>Lire un graphique en range</h3>
+      <p>Reconnaître une phase de range et adapter sa stratégie en conséquence.</p>
+      <div class="module-meta">Rim, 11 min</div>
+    </div>
+    <div class="module-card">
+      <div class="module-level">Intermédiaire</div>
+      <h3>Fondamentaux macro pour traders</h3>
+      <p>Les publications économiques qui comptent vraiment, et pourquoi.</p>
+      <div class="module-meta">Rim, 14 min</div>
+    </div>
+    <div class="module-card">
+      <div class="module-level">Avancé</div>
+      <h3>Scalping vs Swing : trouver son style</h3>
+      <p>Les compromis réels entre les horizons de trading, au-delà des clichés.</p>
+      <div class="module-meta">David, 10 min</div>
+    </div>
+  </div>
+
+</section>
+
+<footer class="wrap">
+  Plan de construction interne. Département R&amp;D RaiseFX. Non destiné à un usage public.
+</footer>
+
+</body>
+</html>
