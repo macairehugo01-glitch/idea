@@ -6,7 +6,339 @@
 <title>Quiz d'orientation : R&D RaiseFX</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<style>
+:root {
+  --bg: #0a0710;
+  --bg-soft: #100b1a;
+  --surface: #170f13;
+  --surface-2: #1e1317;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --text: #f4f0ee;
+  --text-dim: #c4a3a9;
+  --text-faint: #806066;
+  --red: #e8384f;
+  --bordeaux: #6b1f2a;
+  --gradient: linear-gradient(135deg, #e8384f 0%, #6b1f2a 100%);
+  --gradient-soft: linear-gradient(135deg, rgba(232, 56, 79, 0.14) 0%, rgba(107, 31, 42, 0.20) 100%);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: "IBM Plex Sans", -apple-system, sans-serif;
+  --display: "Space Grotesk", var(--sans);
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(107, 31, 42, 0.22), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 10%, rgba(232, 56, 79, 0.10), transparent);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 7, 16, 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: 0.01em;
+}
+.brand .orb-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gradient);
+  box-shadow: 0 0 14px rgba(234, 58, 95, 0.55);
+  flex-shrink: 0;
+}
+.brand .rd {
+  color: var(--text-faint);
+  font-weight: 400;
+  font-family: var(--mono);
+  font-size: 13px;
+}
+.nav-links {
+  display: flex;
+  gap: 28px;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+.nav-links a { transition: color 0.15s ease; position: relative; }
+.nav-links a:hover { color: var(--text); }
+.nav-links a.active { color: var(--text); }
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -20px;
+  height: 2px;
+  background: var(--gradient);
+}
+.nav-toggle { display: none; }
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+}
+
+/* ---------- Hero orb (signature element) ---------- */
+.orb-field {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #ff8f9c 0%, var(--red) 30%, var(--bordeaux) 74%, #200a0d 100%);
+  box-shadow:
+    0 0 90px rgba(107, 31, 42, 0.5),
+    0 0 160px rgba(232, 56, 79, 0.22),
+    inset -18px -18px 50px rgba(0,0,0,0.45);
+  animation: spin 46s linear infinite;
+}
+.orb-ring {
+  position: absolute;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 50%;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* ---------- Sections ---------- */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--gradient);
+}
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 600;
+  margin: 0 0 16px;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: clamp(34px, 5vw, 58px); line-height: 1.06; }
+h2 { font-size: clamp(24px, 3vw, 34px); line-height: 1.15; }
+h3 { font-size: 18px; }
+p { color: var(--text-dim); margin: 0 0 16px; }
+.lede { font-size: 18px; color: var(--text-dim); max-width: 640px; }
+
+section { padding: 88px 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
+
+.hero {
+  padding: 72px 0 60px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+}
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; }
+}
+.hero-visual {
+  position: relative;
+  height: 340px;
+}
+
+.btn-row { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--border-strong);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.btn-primary { background: var(--gradient); border: none; color: #fff; }
+.btn:hover { transform: translateY(-1px); }
+.btn-ghost:hover { border-color: rgba(255,255,255,0.3); }
+
+/* ---------- Cards / grids ---------- */
+.grid { display: grid; gap: 20px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 780px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px;
+}
+.card:hover { border-color: var(--border-strong); }
+
+.tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  color: var(--text-dim);
+}
+
+/* ---------- Benchmark table ---------- */
+.bench-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: 12px;
+}
+.bench-table th, .bench-table td {
+  padding: 16px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.bench-table th {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+  font-weight: 500;
+}
+.bench-table td.row-label {
+  font-family: var(--display);
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+.dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.dot-yes { background: #34d399; }
+.dot-partial { background: #f5b942; }
+.dot-no { background: #4a4058; }
+.bench-table .broker-us td.row-label { color: transparent; background: var(--gradient); -webkit-background-clip: text; background-clip: text; }
+
+.table-scroll { overflow-x: auto; }
+
+/* ---------- Gap / formation blocks ---------- */
+.gap-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--border);
+}
+@media (max-width: 780px) { .gap-item { grid-template-columns: 1fr; } }
+.gap-col-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+.gap-col-label.have { color: var(--text-faint); }
+.gap-col-label.need { color: var(--red); }
+
+/* ---------- Video page ---------- */
+.video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.video-frame video { width: 100%; height: 100%; object-fit: cover; }
+.video-placeholder {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 14px;
+  color: var(--text-faint);
+  font-family: var(--mono);
+  font-size: 13px;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ---------- Roadmap / axes ---------- */
+.axis {
+  display: flex;
+  gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+}
+.axis-num {
+  font-family: var(--display);
+  font-size: 28px;
+  color: var(--text-faint);
+  min-width: 44px;
+}
+.axis.impact-high .axis-num { color: var(--red); }
+
+/* ---------- Footer ---------- */
+footer {
+  padding: 48px 0 60px;
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 13px;
+}
+
+.kicker-page {
+  padding: 140px 0 40px;
+}
+
+</style>
 <style>
   .demo-banner {
     background: var(--gradient-soft);
@@ -72,6 +404,14 @@
   .quiz-result-box h2 { margin: 0 0 12px; }
   .result-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
 
+  .profile-summary {
+    text-align: left; margin-top: 24px; padding: 20px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 10px; font-size: 13px; color: var(--text-dim);
+  }
+  .profile-summary div { padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .profile-summary div:last-child { border-bottom: none; }
+  .profile-summary strong { color: var(--text); font-family: var(--mono); font-weight: 500; }
+
   .back-link { font-size: 13px; color: var(--text-faint); display:inline-block; margin-bottom:18px; }
 </style>
 </head>
@@ -93,7 +433,7 @@
 
 <header class="wrap kicker-page" style="padding-bottom: 20px;">
   <a href="exemple-accueil.html" class="back-link">← Retour à l'accueil articles</a>
-  <div class="demo-banner"><strong>Ceci est une démonstration.</strong> Quiz réellement fonctionnel, résultat calculé en direct à partir de tes réponses.</div>
+  <div class="demo-banner"><strong>Ceci est une démonstration.</strong> Quiz réellement fonctionnel, profil calculé en direct à partir de tes réponses.</div>
 </header>
 
 <section class="wrap">
@@ -101,8 +441,8 @@
   <div class="quiz-hero">
     <div class="quiz-hero-text">
       <div class="eyebrow">Quiz d'orientation</div>
-      <h1>Trouve ton profil en 3 questions.</h1>
-      <p class="lede">Stratégie, actif, timeframe : on t'oriente vers le contenu qui te correspond vraiment.</p>
+      <h1>Trouve ton profil en quelques questions.</h1>
+      <p class="lede">Expérience, objectifs, disponibilité, actifs : on t'oriente vers le contenu qui te correspond vraiment.</p>
     </div>
     <div class="quiz-hero-visual">
       <svg viewBox="0 0 180 140" width="100%" height="100%">
@@ -129,7 +469,99 @@
   <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
 
   <div class="quiz-step active" data-step="1">
-    <div class="quiz-step-label">Question 1 / 3</div>
+    <div class="quiz-step-label">Question 1 / 8</div>
+    <h2>Depuis combien de temps trades-tu ?</h2>
+    <div class="option-grid">
+      <button class="option-card" data-exp="debutant">
+        <h3>Moins de 6 mois</h3>
+        <p>Je débute, je découvre encore les bases.</p>
+      </button>
+      <button class="option-card" data-exp="intermediaire">
+        <h3>6 mois à 2 ans</h3>
+        <p>Je connais les bases, je cherche à structurer ma méthode.</p>
+      </button>
+      <button class="option-card" data-exp="confirme">
+        <h3>2 à 5 ans</h3>
+        <p>J'ai une méthode, je cherche à l'affiner.</p>
+      </button>
+      <button class="option-card" data-exp="expert">
+        <h3>Plus de 5 ans</h3>
+        <p>Je trade depuis longtemps, je cherche des angles plus pointus.</p>
+      </button>
+    </div>
+  </div>
+
+  <div class="quiz-step" data-step="2">
+    <div class="quiz-step-label">Question 2 / 8</div>
+    <h2>Comment pratiques-tu aujourd'hui ?</h2>
+    <div class="option-grid">
+      <button class="option-card" data-pratique="jamais">
+        <h3>Je n'ai jamais tradé</h3>
+        <p>Je m'informe avant de me lancer.</p>
+      </button>
+      <button class="option-card" data-pratique="demo">
+        <h3>Je trade en démo</h3>
+        <p>Je m'entraîne sans argent réel pour l'instant.</p>
+      </button>
+      <button class="option-card" data-pratique="reel-occasionnel">
+        <h3>En réel, occasionnellement</h3>
+        <p>Je trade en argent réel de temps en temps.</p>
+      </button>
+      <button class="option-card" data-pratique="reel-regulier">
+        <h3>En réel, régulièrement</h3>
+        <p>Je trade en argent réel de façon suivie.</p>
+      </button>
+    </div>
+  </div>
+
+  <div class="quiz-step" data-step="3">
+    <div class="quiz-step-label">Question 3 / 8</div>
+    <h2>Quel est ton objectif principal avec le trading ?</h2>
+    <div class="option-grid">
+      <button class="option-card" data-objectif="complement">
+        <h3>Un revenu complémentaire</h3>
+        <p>Générer un revenu à côté de mon activité principale.</p>
+      </button>
+      <button class="option-card" data-objectif="temps-plein">
+        <h3>En faire mon métier</h3>
+        <p>Viser le trading à temps plein à terme.</p>
+      </button>
+      <button class="option-card" data-objectif="apprendre">
+        <h3>Apprendre et comprendre</h3>
+        <p>Comprendre les marchés, sans pression de rendement.</p>
+      </button>
+      <button class="option-card" data-objectif="epargne">
+        <h3>Faire fructifier une épargne</h3>
+        <p>Faire travailler un capital déjà constitué.</p>
+      </button>
+    </div>
+  </div>
+
+  <div class="quiz-step" data-step="4">
+    <div class="quiz-step-label">Question 4 / 8</div>
+    <h2>Quel est ton capital de trading actuel ?</h2>
+    <div class="option-grid">
+      <button class="option-card" data-capital="moins-1k">
+        <h3>Moins de 1 000 $</h3>
+        <p>Je démarre avec un petit capital.</p>
+      </button>
+      <button class="option-card" data-capital="1k-10k">
+        <h3>1 000 à 10 000 $</h3>
+        <p>Un capital de départ correct.</p>
+      </button>
+      <button class="option-card" data-capital="10k-50k">
+        <h3>10 000 à 50 000 $</h3>
+        <p>Un capital déjà conséquent.</p>
+      </button>
+      <button class="option-card" data-capital="plus-50k">
+        <h3>Plus de 50 000 $</h3>
+        <p>Un capital important.</p>
+      </button>
+    </div>
+  </div>
+
+  <div class="quiz-step" data-step="5">
+    <div class="quiz-step-label">Question 5 / 8</div>
     <h2>À quelle fréquence peux-tu suivre le marché ?</h2>
     <div class="option-grid">
       <button class="option-card" data-dispo="semaine">
@@ -151,8 +583,31 @@
     </div>
   </div>
 
-  <div class="quiz-step" data-step="2">
-    <div class="quiz-step-label">Question 2 / 3</div>
+  <div class="quiz-step" data-step="6">
+    <div class="quiz-step-label">Question 6 / 8</div>
+    <h2>Quel actif t'intéresse le plus ?</h2>
+    <div class="option-grid">
+      <button class="option-card" data-actif="crypto">
+        <h3>Crypto</h3>
+        <p>La volatilité et le rythme rapide du marché crypto.</p>
+      </button>
+      <button class="option-card" data-actif="forex">
+        <h3>Forex</h3>
+        <p>Les paires de devises et les sessions macro.</p>
+      </button>
+      <button class="option-card" data-actif="indices">
+        <h3>Indices</h3>
+        <p>Les grands indices actions.</p>
+      </button>
+      <button class="option-card" data-actif="matieres">
+        <h3>Matières premières</h3>
+        <p>Or, pétrole, et les autres matières premières.</p>
+      </button>
+    </div>
+  </div>
+
+  <div class="quiz-step" data-step="7">
+    <div class="quiz-step-label">Question 7 / 8</div>
     <h2>Quelle façon de voir le marché te semble la plus logique ?</h2>
     <div class="option-grid">
       <button class="option-card" data-track="liquidite">
@@ -174,8 +629,8 @@
     </div>
   </div>
 
-  <div class="quiz-step" data-step="3">
-    <div class="quiz-step-label">Question 3 / 3</div>
+  <div class="quiz-step" data-step="8">
+    <div class="quiz-step-label">Question 8 / 8</div>
     <h2>Comment tu réagis face à une perte ?</h2>
     <div class="option-grid">
       <button class="option-card" data-risk="coupe">
@@ -206,7 +661,8 @@
         <a href="exemple-formation.html" class="btn btn-primary">Voir le module recommandé →</a>
         <a href="exemple-article.html" class="btn btn-ghost" style="border: 1px solid var(--border-strong);">Voir un article adapté</a>
       </div>
-      <p style="margin-top:20px; font-size:12px; color: var(--text-faint);" id="sales-profile">Ces réponses construisent un profil client exploitable par les sales pour un suivi personnalisé.</p>
+      <div class="profile-summary" id="sales-profile"></div>
+      <p style="margin-top:14px; font-size:12px; color: var(--text-faint);">Ce profil peut être transmis aux sales pour un suivi personnalisé.</p>
     </div>
   </div>
 
@@ -218,7 +674,9 @@
 
 <script>
 (function() {
-  const answers = { dispo: null, track: null, risk: null };
+  const answers = {};
+  const order = ['1', '2', '3', '4', '5', '6', '7', '8'];
+  const fieldByStep = { 1: 'exp', 2: 'pratique', 3: 'objectif', 4: 'capital', 5: 'dispo', 6: 'actif', 7: 'track', 8: 'risk' };
   const steps = document.querySelectorAll('.quiz-step');
   const progressFill = document.getElementById('progress-fill');
 
@@ -227,63 +685,103 @@
     document.querySelector('.quiz-step[data-step="' + name + '"]').classList.add('active');
   }
 
-  function updateProgress(step) {
-    const pct = { 1: 10, 2: 40, 3: 70, result: 100 }[step];
+  function updateProgress(stepIndex) {
+    const pct = stepIndex === 'result' ? 100 : Math.round((stepIndex / order.length) * 90) + 5;
     progressFill.style.width = pct + '%';
   }
 
-  document.querySelectorAll('.quiz-step[data-step="1"] .option-card').forEach(btn => {
-    btn.addEventListener('click', () => {
-      answers.dispo = btn.dataset.dispo;
-      showStep('2');
-      updateProgress(2);
+  order.forEach((stepNum, i) => {
+    document.querySelectorAll('.quiz-step[data-step="' + stepNum + '"] .option-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const field = fieldByStep[stepNum];
+        answers[field] = btn.dataset[field];
+        const next = order[i + 1];
+        if (next) {
+          showStep(next);
+          updateProgress(i + 2);
+        } else {
+          showResult();
+        }
+      });
     });
   });
 
-  document.querySelectorAll('.quiz-step[data-step="2"] .option-card').forEach(btn => {
-    btn.addEventListener('click', () => {
-      answers.track = btn.dataset.track;
-      showStep('3');
-      updateProgress(3);
-    });
-  });
-
-  const dispoLabels = {
-    semaine: 'disponible en semaine, le soir',
-    weekend: 'disponible surtout le weekend',
-    continu: 'disponible en continu dans la journée',
-    peu: 'peu de temps disponible'
+  const labels = {
+    exp: {
+      debutant: 'débutant (moins de 6 mois)',
+      intermediaire: 'intermédiaire (6 mois à 2 ans)',
+      confirme: 'confirmé (2 à 5 ans)',
+      expert: 'expert (plus de 5 ans)'
+    },
+    pratique: {
+      jamais: 'n\'a jamais tradé',
+      demo: 'trade en démo',
+      'reel-occasionnel': 'trade en réel occasionnellement',
+      'reel-regulier': 'trade en réel régulièrement'
+    },
+    objectif: {
+      complement: 'revenu complémentaire',
+      'temps-plein': 'devenir trader à temps plein',
+      apprendre: 'apprendre et comprendre les marchés',
+      epargne: 'faire fructifier une épargne'
+    },
+    capital: {
+      'moins-1k': 'moins de 1 000 $',
+      '1k-10k': '1 000 à 10 000 $',
+      '10k-50k': '10 000 à 50 000 $',
+      'plus-50k': 'plus de 50 000 $'
+    },
+    dispo: {
+      semaine: 'disponible en semaine, le soir',
+      weekend: 'disponible surtout le weekend',
+      continu: 'disponible en continu dans la journée',
+      peu: 'peu de temps disponible'
+    },
+    actif: {
+      crypto: 'la crypto',
+      forex: 'le forex',
+      indices: 'les indices',
+      matieres: 'les matières premières'
+    },
+    risk: {
+      coupe: 'coupe vite ses pertes',
+      tient: 'garde son plan tant qu\'il tient',
+      petit: 'préfère miser petit sous stress',
+      analyse: 'réanalyse avant de décider'
+    }
   };
+
   const trackData = {
-    liquidite: { label: 'la liquidité', strategy: 'Structure de marché (ICT)', module: 'exemple-formation.html' },
-    patterns:  { label: 'les patterns', strategy: 'Reconnaissance de patterns de prix', module: 'exemple-formation.html' },
-    datas:     { label: 'les datas', strategy: 'Analyse fondamentale et macro', module: 'exemple-formation.html' },
-    ordres:    { label: 'les ordres en place', strategy: 'Volume Profile et flux d\'ordres', module: 'exemple-formation.html' }
-  };
-  const riskLabels = {
-    coupe: 'coupe vite ses pertes',
-    tient: 'garde son plan tant qu\'il tient',
-    petit: 'préfère miser petit sous stress',
-    analyse: 'réanalyse avant de décider'
+    liquidite: { label: 'la liquidité', strategy: 'Structure de marché (ICT)' },
+    patterns:  { label: 'les patterns', strategy: 'Reconnaissance de patterns de prix' },
+    datas:     { label: 'les datas', strategy: 'Analyse fondamentale et macro' },
+    ordres:    { label: 'les ordres en place', strategy: 'Volume Profile et flux d\'ordres' }
   };
 
-  document.querySelectorAll('.quiz-step[data-step="3"] .option-card').forEach(btn => {
-    btn.addEventListener('click', () => {
-      answers.risk = btn.dataset.risk;
-      showStep('result');
-      updateProgress('result');
+  function showResult() {
+    showStep('result');
+    updateProgress('result');
 
-      const track = trackData[answers.track];
-      document.getElementById('result-title').textContent = track.strategy;
-      document.getElementById('result-text').textContent =
-        'D\'après tes réponses : ' + dispoLabels[answers.dispo] + ', une approche basée sur ' + track.label + ', et un profil qui ' + riskLabels[answers.risk] +
-        '. La stratégie recommandée est : ' + track.strategy + '.';
-      document.querySelector('.result-actions a.btn-primary').href = track.module;
+    const track = trackData[answers.track];
+    document.getElementById('result-title').textContent = track.strategy;
+    document.getElementById('result-text').textContent =
+      'D\'après tes réponses, une approche basée sur ' + track.label + ' correspond le mieux à ton profil, sur ' + labels.actif[answers.actif] + '.';
+    document.querySelector('.result-actions a.btn-primary').href = 'exemple-formation.html';
 
-      document.getElementById('sales-profile').textContent =
-        'Profil client : disponibilité (' + dispoLabels[answers.dispo] + '), approche préférée (' + track.label + '), comportement au risque (' + riskLabels[answers.risk] + ').';
-    });
-  });
+    const rows = [
+      ['Expérience', labels.exp[answers.exp]],
+      ['Pratique actuelle', labels.pratique[answers.pratique]],
+      ['Objectif', labels.objectif[answers.objectif]],
+      ['Capital de trading', labels.capital[answers.capital]],
+      ['Disponibilité', labels.dispo[answers.dispo]],
+      ['Actif préféré', labels.actif[answers.actif]],
+      ['Approche de marché', track.label],
+      ['Comportement au risque', labels.risk[answers.risk]]
+    ];
+    document.getElementById('sales-profile').innerHTML = rows.map(r =>
+      '<div><strong>' + r[0] + ':</strong> ' + r[1] + '</div>'
+    ).join('');
+  }
 
   updateProgress(1);
 })();
