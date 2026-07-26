@@ -48,7 +48,7 @@ img { max-width: 100%; display: block; }
   padding: 0 32px;
 }
 
-/* Nav */
+/* ---------- Nav ---------- */
 .nav {
   position: sticky;
   top: 0;
@@ -110,7 +110,7 @@ img { max-width: 100%; display: block; }
   .nav-links { display: none; }
 }
 
-/* Hero orb (signature element) */
+/* ---------- Hero orb (signature element) ---------- */
 .orb-field {
   position: relative;
   width: 100%;
@@ -134,7 +134,7 @@ img { max-width: 100%; display: block; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes drift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-/* Sections */
+/* ---------- Sections ---------- */
 .eyebrow {
   font-family: var(--mono);
   font-size: 12px;
@@ -162,7 +162,7 @@ h1, h2, h3 {
 h1 { font-size: clamp(34px, 5vw, 58px); line-height: 1.06; }
 h2 { font-size: clamp(24px, 3vw, 34px); line-height: 1.15; }
 h3 { font-size: 18px; }
-p { color: var(--text-dim); margin: 0 0 16px; }
+p { color: var(--text-dim); margin: 0 0 16px; text-align: justify; }
 .lede { font-size: 18px; color: var(--text-dim); max-width: 640px; }
 
 section { padding: 88px 0; border-bottom: 1px solid var(--border); }
@@ -199,7 +199,7 @@ section:last-of-type { border-bottom: none; }
 .btn:hover { transform: translateY(-1px); }
 .btn-ghost:hover { border-color: rgba(255,255,255,0.3); }
 
-/* Cards / grids */
+/* ---------- Cards / grids ---------- */
 .grid { display: grid; gap: 20px; }
 .grid-2 { grid-template-columns: repeat(2, 1fr); }
 .grid-3 { grid-template-columns: repeat(3, 1fr); }
@@ -227,7 +227,7 @@ section:last-of-type { border-bottom: none; }
   color: var(--text-dim);
 }
 
-/* Benchmark table */
+/* ---------- Benchmark table ---------- */
 .bench-table {
   width: 100%;
   border-collapse: collapse;
@@ -267,7 +267,7 @@ section:last-of-type { border-bottom: none; }
 
 .table-scroll { overflow-x: auto; }
 
-/* Gap / formation blocks */
+/* ---------- Gap / formation blocks ---------- */
 .gap-item {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -280,7 +280,7 @@ section:last-of-type { border-bottom: none; }
 .gap-col-label.have { color: var(--text-faint); }
 .gap-col-label.need { color: var(--red); }
 
-/* Video page */
+/* ---------- Video page ---------- */
 .video-frame {
   position: relative;
   width: 100%;
@@ -302,7 +302,7 @@ section:last-of-type { border-bottom: none; }
   padding: 20px;
 }
 
-/* Roadmap / axes */
+/* ---------- Roadmap / axes ---------- */
 .axis {
   display: flex;
   gap: 20px;
@@ -317,7 +317,7 @@ section:last-of-type { border-bottom: none; }
 }
 .axis.impact-high .axis-num { color: var(--red); }
 
-/* Footer */
+/* ---------- Footer ---------- */
 footer {
   padding: 48px 0 60px;
   text-align: center;
