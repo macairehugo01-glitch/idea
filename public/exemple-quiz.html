@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz d'orientation : R&D RaiseFX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .demo-banner {
+    background: var(--gradient-soft);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+  }
+  .demo-banner strong { color: var(--text); }
+
+  .quiz-hero {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    margin-bottom: 36px;
+    padding: 36px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .quiz-hero-text { flex: 1; min-width: 220px; }
+  .quiz-hero-visual { width: 180px; height: 140px; flex-shrink: 0; }
+
+  .progress-track {
+    height: 6px;
+    background: var(--surface-2);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--gradient);
+    width: 0%;
+    transition: width 0.35s ease;
+  }
+
+  .quiz-step { display: none; }
+  .quiz-step.active { display: block; }
+  .quiz-step-label { font-family: var(--mono); font-size: 12px; color: var(--red); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+
+  .option-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 22px; }
+  @media (max-width: 700px) { .option-grid { grid-template-columns: 1fr; } }
+  .option-card {
+    background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius);
+    padding: 20px; cursor: pointer; text-align: left; color: var(--text); font-family: var(--sans);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .option-card:hover { border-color: var(--red); transform: translateY(-2px); }
+  .option-card h3 { margin: 0 0 6px; font-size: 16px; }
+  .option-card p { margin: 0; font-size: 13px; color: var(--text-dim); }
+
+  .quiz-result-box {
+    background: var(--gradient-soft); border: 1px solid var(--border-strong); border-radius: var(--radius);
+    padding: 32px; text-align: center;
+  }
+  .quiz-result-box .tag { margin-bottom: 14px; }
+  .quiz-result-box h2 { margin: 0 0 12px; }
+  .result-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+
+  .back-link { font-size: 13px; color: var(--text-faint); display:inline-block; margin-bottom:18px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="orb-dot"></span>RaiseFX <span class="rd">/ R&amp;D</span></div>
+    <div class="nav-links">
+      <a href="index.html">Vue d'ensemble</a>
+      <a href="articles.html">Benchmark</a>
+      <a href="webinaire.html">Nos profils</a>
+      <a href="formation.html">Fondations</a>
+      <a href="idees.html">Idées</a>
+      <a href="exemple-accueil.html">Aperçu client</a>
+    </div>
+  </div>
+</nav>
+
+<header class="wrap kicker-page" style="padding-bottom: 20px;">
+  <a href="exemple-accueil.html" class="back-link">← Retour à l'accueil articles</a>
+  <div class="demo-banner"><strong>Ceci est une démonstration.</strong> Quiz réellement fonctionnel, résultat calculé en direct à partir de tes réponses.</div>
+</header>
+
+<section class="wrap">
+
+  <div class="quiz-hero">
+    <div class="quiz-hero-text">
+      <div class="eyebrow">Quiz d'orientation</div>
+      <h1>Trouve ton profil en 3 questions.</h1>
+      <p class="lede">Stratégie, actif, timeframe : on t'oriente vers le contenu qui te correspond vraiment.</p>
+    </div>
+    <div class="quiz-hero-visual">
+      <svg viewBox="0 0 180 140" width="100%" height="100%">
+        <defs>
+          <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ff8f9c"/>
+            <stop offset="55%" stop-color="var(--red)"/>
+            <stop offset="100%" stop-color="var(--bordeaux)"/>
+          </radialGradient>
+        </defs>
+        <line x1="25" y1="25" x2="90" y2="70" stroke="var(--border-strong)" stroke-width="1.5"/>
+        <line x1="25" y1="115" x2="90" y2="70" stroke="var(--border-strong)" stroke-width="1.5"/>
+        <line x1="155" y1="25" x2="90" y2="70" stroke="var(--border-strong)" stroke-width="1.5"/>
+        <line x1="155" y1="115" x2="90" y2="70" stroke="var(--border-strong)" stroke-width="1.5"/>
+        <circle cx="25" cy="25" r="9" fill="var(--surface-2)" stroke="var(--border-strong)"/>
+        <circle cx="25" cy="115" r="9" fill="var(--surface-2)" stroke="var(--border-strong)"/>
+        <circle cx="155" cy="25" r="9" fill="var(--surface-2)" stroke="var(--border-strong)"/>
+        <circle cx="155" cy="115" r="9" fill="var(--surface-2)" stroke="var(--border-strong)"/>
+        <circle cx="90" cy="70" r="22" fill="url(#nodeGlow)"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+
+  <div class="quiz-step active" data-step="1">
+    <div class="quiz-step-label">Question 1 / 3</div>
+    <h2>Quelle stratégie te ressemble le plus ?</h2>
+    <div class="option-grid">
+      <button class="option-card" data-track="ict">
+        <h3>Structure de marché</h3>
+        <p>Je préfère lire les zones de liquidité et les cassures de structure (ICT).</p>
+      </button>
+      <button class="option-card" data-track="volume">
+        <h3>Volume et flux d'ordres</h3>
+        <p>Je m'intéresse à où le volume se concentre réellement sur le graphique.</p>
+      </button>
+      <button class="option-card" data-track="fondamental">
+        <h3>Fondamentaux macro</h3>
+        <p>Je préfère comprendre le contexte économique avant de regarder le graphique.</p>
+      </button>
+      <button class="option-card" data-track="technique">
+        <h3>Analyse technique classique</h3>
+        <p>Supports, résistances, indicateurs : je pars du graphique en premier.</p>
+      </button>
+    </div>
+  </div>
+
+  <div class="quiz-step" data-step="2">
+    <div class="quiz-step-label">Question 2 / 3</div>
+    <h2>Quel actif te ressemble le plus ?</h2>
+    <div class="option-grid">
+      <button class="option-card" data-asset="crypto">
+        <h3>Crypto</h3>
+        <p>J'aime la volatilité et le rythme rapide du marché crypto.</p>
+      </button>
+      <button class="option-card" data-asset="forex">
+        <h3>Forex</h3>
+        <p>Je préfère les paires de devises et les sessions macro.</p>
+      </button>
+      <button class="option-card" data-asset="indices">
+        <h3>Indices</h3>
+        <p>Je regarde plutôt les grands indices actions.</p>
+      </button>
+      <button class="option-card" data-asset="matieres">
+        <h3>Matières premières</h3>
+        <p>Or, pétrole : je m'intéresse aux matières premières.</p>
+      </button>
+    </div>
+  </div>
+
+  <div class="quiz-step" data-step="3">
+    <div class="quiz-step-label">Question 3 / 3</div>
+    <h2>Quel timeframe te correspond ?</h2>
+    <div class="option-grid">
+      <button class="option-card" data-tf="scalping">
+        <h3>Scalping</h3>
+        <p>Je préfère des trades courts, plusieurs par jour.</p>
+      </button>
+      <button class="option-card" data-tf="intraday">
+        <h3>Intraday</h3>
+        <p>Je clôture mes positions dans la journée, sans les garder la nuit.</p>
+      </button>
+      <button class="option-card" data-tf="swing">
+        <h3>Swing</h3>
+        <p>Je garde une position plusieurs jours à plusieurs semaines.</p>
+      </button>
+      <button class="option-card" data-tf="position">
+        <h3>Position</h3>
+        <p>Je préfère les mouvements de fond, sur plusieurs mois.</p>
+      </button>
+    </div>
+  </div>
+
+  <div class="quiz-step" data-step="result">
+    <div class="quiz-result-box">
+      <div class="tag">Ton profil</div>
+      <h2 id="result-title">Résultat</h2>
+      <p id="result-text" style="color: var(--text-dim);"></p>
+      <div class="result-actions">
+        <a href="exemple-formation.html" class="btn btn-primary">Voir le module recommandé →</a>
+        <a href="exemple-article.html" class="btn btn-ghost" style="border: 1px solid var(--border-strong);">Voir un article adapté</a>
+      </div>
+      <p style="margin-top:20px; font-size:12px; color: var(--text-faint);">Ces réponses peuvent aussi construire un profil client exploitable par les sales pour un suivi personnalisé.</p>
+    </div>
+  </div>
+
+</section>
+
+<footer class="wrap">
+  Plan de construction interne. Département R&amp;D RaiseFX. Non destiné à un usage public.
+</footer>
+
+<script>
+(function() {
+  const answers = { track: null, asset: null, tf: null };
+  const steps = document.querySelectorAll('.quiz-step');
+  const progressFill = document.getElementById('progress-fill');
+
+  function showStep(name) {
+    steps.forEach(s => s.classList.remove('active'));
+    document.querySelector('.quiz-step[data-step="' + name + '"]').classList.add('active');
+  }
+
+  function updateProgress(step) {
+    const pct = { 1: 10, 2: 40, 3: 70, result: 100 }[step];
+    progressFill.style.width = pct + '%';
+  }
+
+  document.querySelectorAll('.quiz-step[data-step="1"] .option-card').forEach(btn => {
+    btn.addEventListener('click', () => {
+      answers.track = btn.dataset.track;
+      showStep('2');
+      updateProgress(2);
+    });
+  });
+
+  document.querySelectorAll('.quiz-step[data-step="2"] .option-card').forEach(btn => {
+    btn.addEventListener('click', () => {
+      answers.asset = btn.dataset.asset;
+      showStep('3');
+      updateProgress(3);
+    });
+  });
+
+  const trackLabels = {
+    ict: 'structure de marché (ICT)',
+    volume: 'lecture du volume',
+    fondamental: 'analyse fondamentale',
+    technique: 'analyse technique classique'
+  };
+  const assetLabels = {
+    crypto: 'la crypto',
+    forex: 'le forex',
+    indices: 'les indices',
+    matieres: 'les matières premières'
+  };
+  const tfLabels = {
+    scalping: 'scalping',
+    intraday: 'intraday',
+    swing: 'swing',
+    position: 'position'
+  };
+
+  document.querySelectorAll('.quiz-step[data-step="3"] .option-card').forEach(btn => {
+    btn.addEventListener('click', () => {
+      answers.tf = btn.dataset.tf;
+      showStep('result');
+      updateProgress('result');
+
+      document.getElementById('result-title').textContent =
+        'Profil ' + trackLabels[answers.track].charAt(0).toUpperCase() + trackLabels[answers.track].slice(1) + ', ' + tfLabels[answers.tf];
+      document.getElementById('result-text').textContent =
+        'D\'après tes réponses, tu es plutôt orienté ' + trackLabels[answers.track] + ', sur ' + assetLabels[answers.asset] + ', en ' + tfLabels[answers.tf] + '. Voici le module de formation et l\'article qui correspondent le mieux à ce profil.';
+    });
+  });
+
+  updateProgress(1);
+})();
+</script>
+
+</body>
+</html>
