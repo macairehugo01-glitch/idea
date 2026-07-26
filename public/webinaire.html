@@ -7,6 +7,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+  .strength-list { list-style: none; margin: 14px 0 0; padding: 0; }
+  .strength-list li {
+    font-size: 13px; color: var(--text-dim); padding: 7px 0 7px 20px; position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  .strength-list li:last-child { border-bottom: none; }
+  .strength-list li::before {
+    content: "+"; position: absolute; left: 0; color: var(--red); font-family: var(--mono); font-weight: 600;
+  }
+  .signature-tag {
+    display: inline-block; margin-top: 16px; font-family: var(--mono); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.05em; padding: 5px 12px; border-radius: 999px;
+    background: var(--gradient-soft); border: 1px solid var(--border-strong); color: var(--text);
+  }
+</style>
 </head>
 <body>
 
@@ -26,8 +42,8 @@
 
 <header class="wrap kicker-page">
   <div class="eyebrow">Page 02 : Nos profils</div>
-  <h1>Trois profils, une complémentarité.</h1>
-  <p class="lede">Le département R&amp;D ne repose pas sur un seul visage mais sur trois market analysts aux forces distinctes. Voici qui les porte, et ce que chacun apporte.</p>
+  <h1>Trois profils complets, chacun avec un point fort qui tire le groupe vers le haut.</h1>
+  <p class="lede">Les trois analysts couvrent déjà, ensemble, l'essentiel du terrain : marchés, formats, langues. Chacun a en plus un point fort qui dépasse la moyenne, sans que les deux autres soient en retrait sur le reste.</p>
 </header>
 
 <section class="wrap">
@@ -35,30 +51,54 @@
     <div class="card">
       <div class="tag">Market Analyst</div>
       <h3 style="margin-top:14px;">Hugo</h3>
-      <p style="font-size:14px;">Crypto et fondamentaux, stratégies multiples (ICT, volume profile, footprint), expérience réseaux sociaux et écriture d'articles</p>
-      <p style="font-size:14px;">Format fort : articles</p>
-      <p style="font-size:14px;">Couverture : indices et crypto</p>
+      <ul class="strength-list">
+        <li>Crypto et indices, plusieurs stratégies (ICT, volume profile, footprint)</li>
+        <li>Expérience réseaux sociaux et écriture d'articles</li>
+        <li>À l'aise sur tous les formats, écrit comme oral</li>
+      </ul>
+      <div class="signature-tag">Point fort : articles</div>
     </div>
     <div class="card">
       <div class="tag">Market Analyst</div>
       <h3 style="margin-top:14px;">Rim</h3>
-      <p style="font-size:14px;">Très à l'aise à l'oral, background streamer, stratégies ICT et fondamentales</p>
-      <p style="font-size:14px;">Format fort : live</p>
-      <p style="font-size:14px;">Couverture : marchés asiatiques, forex et gold</p>
+      <ul class="strength-list">
+        <li>Marchés asiatiques, forex et gold</li>
+        <li>Stratégies ICT et fondamentales</li>
+        <li>Background streamer, très à l'aise à l'oral</li>
+      </ul>
+      <div class="signature-tag">Point fort : live</div>
     </div>
     <div class="card">
       <div class="tag">Market Analyst</div>
       <h3 style="margin-top:14px;">David</h3>
-      <p style="font-size:14px;">Gros background sales, aisance orale et présentation</p>
-      <p style="font-size:14px;">Format fort : webinaires</p>
+      <ul class="strength-list">
+        <li>Background sales, sens de la conversion</li>
+        <li>Aisance orale et présentation structurée</li>
+        <li>Bon relationnel pour porter les formats en direct</li>
+      </ul>
+      <div class="signature-tag">Point fort : webinaires</div>
     </div>
   </div>
 </section>
 
 <section class="wrap">
   <div class="eyebrow">Complémentarité</div>
-  <h2>Un profil par format, pas trois fois le même.</h2>
-  <p class="lede">Les trois analysts couvrent chacun un format différent, ce qui donne au département une chaîne de contenu complète sans redondance. Hugo écrit les articles et alimente les réseaux sociaux : c'est la base écrite, publiée en continu. David porte les webinaires : le format structuré, préparé, orienté conversion, où son expérience sales fait la différence. Rim porte le live : le format spontané et réactif, où son aisance de streamer et sa connaissance des marchés asiatiques ouvrent une couverture que peu de concurrents proposent. Un même sujet peut ainsi exister sous trois formes, chacune portée par la personne la plus à l'aise pour la produire.</p>
+  <h2>Un point fort chacun, pas un point faible ailleurs.</h2>
+  <p class="lede">Aucun des trois n'est limité à un seul format. Chacun peut couvrir les autres si besoin, mais le trio fonctionne mieux en laissant chacun porter le format où il est le plus fort. Hugo écrit et alimente les réseaux, David structure et anime les webinaires, Rim porte le live avec une réactivité que peu de concurrents proposent. Le résultat : trois formats bien couverts dès le lancement, sans avoir besoin d'un quatrième profil pour combler un manque.</p>
+  <div class="grid grid-3" style="margin-top:20px;">
+    <div class="card">
+      <h3>Couverture marché large</h3>
+      <p>Crypto, indices, forex, gold, matières premières : à eux trois, la couverture d'actifs dépasse déjà ce qu'un seul analyste pourrait suivre sérieusement.</p>
+    </div>
+    <div class="card">
+      <h3>Couverture stratégique large</h3>
+      <p>ICT, volume profile, footprint, fondamental : plusieurs lectures du marché représentées, pas une seule école de pensée.</p>
+    </div>
+    <div class="card">
+      <h3>Couverture format complète</h3>
+      <p>Écrit, live, webinaire : les trois formats prioritaires du benchmark sont couverts dès le premier jour, chacun par la personne la plus à l'aise pour le produire.</p>
+    </div>
+  </div>
 </section>
 
 <footer class="wrap">
