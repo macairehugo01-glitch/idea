@@ -130,69 +130,69 @@
 
   <div class="quiz-step active" data-step="1">
     <div class="quiz-step-label">Question 1 / 3</div>
-    <h2>Quelle stratégie te ressemble le plus ?</h2>
+    <h2>À quelle fréquence peux-tu suivre le marché ?</h2>
     <div class="option-grid">
-      <button class="option-card" data-track="ict">
-        <h3>Structure de marché</h3>
-        <p>Je préfère lire les zones de liquidité et les cassures de structure (ICT).</p>
+      <button class="option-card" data-dispo="semaine">
+        <h3>En semaine, le soir</h3>
+        <p>Je travaille la semaine, je ne peux suivre le marché qu'en dehors des heures de bureau.</p>
       </button>
-      <button class="option-card" data-track="volume">
-        <h3>Volume et flux d'ordres</h3>
-        <p>Je m'intéresse à où le volume se concentre réellement sur le graphique.</p>
+      <button class="option-card" data-dispo="weekend">
+        <h3>Plutôt le weekend</h3>
+        <p>Mes semaines sont prises, je préfère analyser et préparer mes positions le weekend.</p>
       </button>
-      <button class="option-card" data-track="fondamental">
-        <h3>Fondamentaux macro</h3>
-        <p>Je préfère comprendre le contexte économique avant de regarder le graphique.</p>
+      <button class="option-card" data-dispo="continu">
+        <h3>En continu dans la journée</h3>
+        <p>Je peux garder un œil sur le marché toute la journée si besoin.</p>
       </button>
-      <button class="option-card" data-track="technique">
-        <h3>Analyse technique classique</h3>
-        <p>Supports, résistances, indicateurs : je pars du graphique en premier.</p>
+      <button class="option-card" data-dispo="peu">
+        <h3>Très peu de temps</h3>
+        <p>J'ai peu de disponibilité, je veux quelque chose que je peux suivre en quelques minutes par jour.</p>
       </button>
     </div>
   </div>
 
   <div class="quiz-step" data-step="2">
     <div class="quiz-step-label">Question 2 / 3</div>
-    <h2>Quel actif te ressemble le plus ?</h2>
+    <h2>Quelle façon de voir le marché te semble la plus logique ?</h2>
     <div class="option-grid">
-      <button class="option-card" data-asset="crypto">
-        <h3>Crypto</h3>
-        <p>J'aime la volatilité et le rythme rapide du marché crypto.</p>
+      <button class="option-card" data-track="liquidite">
+        <h3>Jouer sur la liquidité</h3>
+        <p>Repérer où les gros ordres se déclenchent et suivre ce mouvement.</p>
       </button>
-      <button class="option-card" data-asset="forex">
-        <h3>Forex</h3>
-        <p>Je préfère les paires de devises et les sessions macro.</p>
+      <button class="option-card" data-track="patterns">
+        <h3>Jouer sur les patterns</h3>
+        <p>Reconnaître des figures de prix qui se répètent dans le temps.</p>
       </button>
-      <button class="option-card" data-asset="indices">
-        <h3>Indices</h3>
-        <p>Je regarde plutôt les grands indices actions.</p>
+      <button class="option-card" data-track="datas">
+        <h3>Jouer sur les datas</h3>
+        <p>Partir des chiffres économiques et des fondamentaux avant de regarder le graphique.</p>
       </button>
-      <button class="option-card" data-asset="matieres">
-        <h3>Matières premières</h3>
-        <p>Or, pétrole : je m'intéresse aux matières premières.</p>
+      <button class="option-card" data-track="ordres">
+        <h3>Jouer sur les ordres en place</h3>
+        <p>Regarder où le volume et les ordres se concentrent réellement sur le marché.</p>
       </button>
     </div>
   </div>
 
   <div class="quiz-step" data-step="3">
     <div class="quiz-step-label">Question 3 / 3</div>
-    <h2>Quel timeframe te correspond ?</h2>
+    <h2>Comment tu réagis face à une perte ?</h2>
     <div class="option-grid">
-      <button class="option-card" data-tf="scalping">
-        <h3>Scalping</h3>
-        <p>Je préfère des trades courts, plusieurs par jour.</p>
+      <button class="option-card" data-risk="coupe">
+        <h3>Je coupe vite</h3>
+        <p>Je préfère limiter les dégâts immédiatement plutôt qu'espérer un retournement.</p>
       </button>
-      <button class="option-card" data-tf="intraday">
-        <h3>Intraday</h3>
-        <p>Je clôture mes positions dans la journée, sans les garder la nuit.</p>
+      <button class="option-card" data-risk="tient">
+        <h3>Je laisse courir mon plan</h3>
+        <p>Si le scénario de départ tient toujours, je garde ma position.</p>
       </button>
-      <button class="option-card" data-tf="swing">
-        <h3>Swing</h3>
-        <p>Je garde une position plusieurs jours à plusieurs semaines.</p>
+      <button class="option-card" data-risk="petit">
+        <h3>Ça me stresse, je mise petit</h3>
+        <p>Je préfère limiter la taille dès le départ pour ne pas y penser.</p>
       </button>
-      <button class="option-card" data-tf="position">
-        <h3>Position</h3>
-        <p>Je préfère les mouvements de fond, sur plusieurs mois.</p>
+      <button class="option-card" data-risk="analyse">
+        <h3>Je réanalyse avant de décider</h3>
+        <p>Je reprends les données avant de couper ou de garder.</p>
       </button>
     </div>
   </div>
@@ -206,7 +206,7 @@
         <a href="exemple-formation.html" class="btn btn-primary">Voir le module recommandé →</a>
         <a href="exemple-article.html" class="btn btn-ghost" style="border: 1px solid var(--border-strong);">Voir un article adapté</a>
       </div>
-      <p style="margin-top:20px; font-size:12px; color: var(--text-faint);">Ces réponses peuvent aussi construire un profil client exploitable par les sales pour un suivi personnalisé.</p>
+      <p style="margin-top:20px; font-size:12px; color: var(--text-faint);" id="sales-profile">Ces réponses construisent un profil client exploitable par les sales pour un suivi personnalisé.</p>
     </div>
   </div>
 
@@ -218,7 +218,7 @@
 
 <script>
 (function() {
-  const answers = { track: null, asset: null, tf: null };
+  const answers = { dispo: null, track: null, risk: null };
   const steps = document.querySelectorAll('.quiz-step');
   const progressFill = document.getElementById('progress-fill');
 
@@ -234,7 +234,7 @@
 
   document.querySelectorAll('.quiz-step[data-step="1"] .option-card').forEach(btn => {
     btn.addEventListener('click', () => {
-      answers.track = btn.dataset.track;
+      answers.dispo = btn.dataset.dispo;
       showStep('2');
       updateProgress(2);
     });
@@ -242,41 +242,46 @@
 
   document.querySelectorAll('.quiz-step[data-step="2"] .option-card').forEach(btn => {
     btn.addEventListener('click', () => {
-      answers.asset = btn.dataset.asset;
+      answers.track = btn.dataset.track;
       showStep('3');
       updateProgress(3);
     });
   });
 
-  const trackLabels = {
-    ict: 'structure de marché (ICT)',
-    volume: 'lecture du volume',
-    fondamental: 'analyse fondamentale',
-    technique: 'analyse technique classique'
+  const dispoLabels = {
+    semaine: 'disponible en semaine, le soir',
+    weekend: 'disponible surtout le weekend',
+    continu: 'disponible en continu dans la journée',
+    peu: 'peu de temps disponible'
   };
-  const assetLabels = {
-    crypto: 'la crypto',
-    forex: 'le forex',
-    indices: 'les indices',
-    matieres: 'les matières premières'
+  const trackData = {
+    liquidite: { label: 'la liquidité', strategy: 'Structure de marché (ICT)', module: 'exemple-formation.html' },
+    patterns:  { label: 'les patterns', strategy: 'Reconnaissance de patterns de prix', module: 'exemple-formation.html' },
+    datas:     { label: 'les datas', strategy: 'Analyse fondamentale et macro', module: 'exemple-formation.html' },
+    ordres:    { label: 'les ordres en place', strategy: 'Volume Profile et flux d\'ordres', module: 'exemple-formation.html' }
   };
-  const tfLabels = {
-    scalping: 'scalping',
-    intraday: 'intraday',
-    swing: 'swing',
-    position: 'position'
+  const riskLabels = {
+    coupe: 'coupe vite ses pertes',
+    tient: 'garde son plan tant qu\'il tient',
+    petit: 'préfère miser petit sous stress',
+    analyse: 'réanalyse avant de décider'
   };
 
   document.querySelectorAll('.quiz-step[data-step="3"] .option-card').forEach(btn => {
     btn.addEventListener('click', () => {
-      answers.tf = btn.dataset.tf;
+      answers.risk = btn.dataset.risk;
       showStep('result');
       updateProgress('result');
 
-      document.getElementById('result-title').textContent =
-        'Profil ' + trackLabels[answers.track].charAt(0).toUpperCase() + trackLabels[answers.track].slice(1) + ', ' + tfLabels[answers.tf];
+      const track = trackData[answers.track];
+      document.getElementById('result-title').textContent = track.strategy;
       document.getElementById('result-text').textContent =
-        'D\'après tes réponses, tu es plutôt orienté ' + trackLabels[answers.track] + ', sur ' + assetLabels[answers.asset] + ', en ' + tfLabels[answers.tf] + '. Voici le module de formation et l\'article qui correspondent le mieux à ce profil.';
+        'D\'après tes réponses : ' + dispoLabels[answers.dispo] + ', une approche basée sur ' + track.label + ', et un profil qui ' + riskLabels[answers.risk] +
+        '. La stratégie recommandée est : ' + track.strategy + '.';
+      document.querySelector('.result-actions a.btn-primary').href = track.module;
+
+      document.getElementById('sales-profile').textContent =
+        'Profil client : disponibilité (' + dispoLabels[answers.dispo] + '), approche préférée (' + track.label + '), comportement au risque (' + riskLabels[answers.risk] + ').';
     });
   });
 
