@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aperçu client, accueil articles : R&D RaiseFX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .demo-banner {
+    background: var(--gradient-soft);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+  }
+  .demo-banner strong { color: var(--text); }
+
+  .fidelity-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    margin-bottom: 40px;
+  }
+  .fidelity-left { display: flex; align-items: center; gap: 16px; }
+  .fidelity-avatar {
+    width: 46px; height: 46px; border-radius: 50%; background: var(--gradient);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-weight: 600; color: #fff; font-size: 16px;
+  }
+  .fidelity-level { font-family: var(--mono); font-size: 11px; color: var(--red); text-transform: uppercase; letter-spacing: 0.06em; }
+  .fidelity-points { font-family: var(--display); font-size: 18px; color: var(--text); }
+  .fidelity-bar-track { width: 220px; height: 8px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+  .fidelity-bar-fill { height: 100%; background: var(--gradient); width: 68%; }
+  .fidelity-next { font-size: 12px; color: var(--text-faint); margin-top: 6px; }
+
+  .quiz-teaser {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    background: var(--gradient-soft); border: 1px solid var(--border-strong); border-radius: var(--radius);
+    padding: 22px 26px; margin-bottom: 40px;
+  }
+  .quiz-teaser h3 { margin: 0 0 4px; }
+  .quiz-teaser p { margin: 0; color: var(--text-dim); font-size: 14px; }
+
+  .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+  .filter-btn {
+    padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border-strong);
+    background: transparent; color: var(--text-dim); font-size: 13px; font-family: var(--mono); cursor: pointer;
+  }
+  .filter-btn.active { background: var(--surface-2); color: var(--text); border-color: var(--red); }
+
+  .article-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 780px) { .article-grid { grid-template-columns: 1fr; } }
+
+  .article-card {
+    display: block; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .article-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .article-thumb {
+    height: 130px; display: flex; align-items: flex-end; padding: 14px;
+    background: var(--gradient-soft);
+  }
+  .article-thumb .cat-tag {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 4px 10px; border-radius: 999px; background: var(--gradient); color: #fff;
+  }
+  .article-body-preview { padding: 18px 20px 20px; }
+  .article-card h3 { font-size: 16px; margin: 0 0 8px; }
+  .article-card p { font-size: 13px; color: var(--text-dim); margin: 0 0 14px; line-height: 1.5; }
+  .article-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-faint); font-family: var(--mono); }
+  .points-badge { color: var(--red); }
+  .featured-badge {
+    position: absolute; margin: -34px 0 0 14px; font-family: var(--mono); font-size: 10px;
+    background: var(--red); color: #fff; padding: 3px 10px; border-radius: 999px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="orb-dot"></span>RaiseFX <span class="rd">/ R&amp;D</span></div>
+    <div class="nav-links">
+      <a href="index.html">Vue d'ensemble</a>
+      <a href="articles.html">Benchmark</a>
+      <a href="webinaire.html">Nos profils</a>
+      <a href="formation.html">Fondations</a>
+      <a href="idees.html">Idées</a>
+      <a href="exemple-accueil.html" class="active">Aperçu client</a>
+    </div>
+  </div>
+</nav>
+
+<header class="wrap kicker-page" style="padding-bottom: 20px;">
+  <div class="demo-banner"><strong>Ceci est une démonstration.</strong> Aperçu de ce à quoi pourrait ressembler la page d'accueil de la section R&amp;D, côté client. Clique sur un article pour voir l'exemple fonctionnel.</div>
+  <div class="eyebrow">Espace recherche RaiseFX, aperçu client</div>
+  <h1>Recherche &amp; analyse</h1>
+  <p class="lede">Articles, formation et live, au même endroit que ton compte de trading.</p>
+</header>
+
+<section class="wrap">
+
+  <div class="fidelity-strip">
+    <div class="fidelity-left">
+      <div class="fidelity-avatar">V</div>
+      <div>
+        <div class="fidelity-level">Niveau 2</div>
+        <div class="fidelity-points">890 points de fidélité</div>
+      </div>
+    </div>
+    <div>
+      <div class="fidelity-bar-track"><div class="fidelity-bar-fill"></div></div>
+      <div class="fidelity-next">340 points avant le niveau 3</div>
+    </div>
+  </div>
+
+  <div class="quiz-teaser">
+    <div>
+      <h3>Tu ne sais pas par où commencer ?</h3>
+      <p>Un quiz de 2 minutes pour trouver la stratégie, l'actif et le format qui te correspondent.</p>
+    </div>
+    <a href="idees.html" class="btn btn-primary">Faire le quiz →</a>
+  </div>
+
+  <div class="filter-tabs" id="filter-tabs">
+    <button class="filter-btn active" data-filter="all">Tous</button>
+    <button class="filter-btn" data-filter="macro">Macro</button>
+    <button class="filter-btn" data-filter="crypto">Crypto</button>
+    <button class="filter-btn" data-filter="forex">Forex</button>
+    <button class="filter-btn" data-filter="indices">Indices</button>
+    <button class="filter-btn" data-filter="formation">Formation</button>
+  </div>
+
+  <div class="article-grid" id="article-grid">
+
+    <a href="exemple-article.html" class="article-card" data-cat="macro">
+      <div class="article-thumb"><span class="cat-tag">Macro</span></div>
+      <div class="article-body-preview">
+        <h3>Le choc qui n'en est peut-être pas un</h3>
+        <p>Les prix à la production accélèrent en zone euro, mais la ventilation des chiffres raconte une autre histoire.</p>
+        <div class="article-meta">
+          <span>Hugo, 4 min</span>
+          <span class="points-badge">+15 pts quiz</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="exemple-article.html" class="article-card" data-cat="crypto">
+      <div class="article-thumb"><span class="cat-tag">Crypto</span></div>
+      <div class="article-body-preview">
+        <h3>BTC : la consolidation avant la cassure ?</h3>
+        <p>Le marché retient son souffle sous la résistance des 65 000. Ce que dit le positionnement des dérivés.</p>
+        <div class="article-meta">
+          <span>Hugo, 3 min</span>
+          <span class="points-badge">+15 pts quiz</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="exemple-article.html" class="article-card" data-cat="forex">
+      <div class="article-thumb"><span class="cat-tag">Forex</span></div>
+      <div class="article-body-preview">
+        <h3>GBP/USD : le pari risqué de la Fed</h3>
+        <p>Entre inflation collante et ralentissement du marché de l'emploi, la Fed navigue à vue. La livre en profite.</p>
+        <div class="article-meta">
+          <span>Rim, 4 min</span>
+          <span class="points-badge">+15 pts quiz</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="exemple-article.html" class="article-card" data-cat="indices">
+      <div class="article-thumb"><span class="cat-tag">Indices</span></div>
+      <div class="article-body-preview">
+        <h3>Nasdaq 100 : earnings season, le vrai test</h3>
+        <p>Les valorisations tendues laissent peu de place à l'erreur pour les résultats trimestriels à venir.</p>
+        <div class="article-meta">
+          <span>David, 5 min</span>
+          <span class="points-badge">+15 pts quiz</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="exemple-article.html" class="article-card" data-cat="macro">
+      <div class="article-thumb"><span class="cat-tag">Matières premières</span></div>
+      <div class="article-body-preview">
+        <h3>Or : pourquoi les banques centrales continuent d'acheter</h3>
+        <p>La demande officielle reste sur des niveaux historiquement élevés, un plancher structurel pour le métal jaune.</p>
+        <div class="article-meta">
+          <span>Rim, 3 min</span>
+          <span class="points-badge">+15 pts quiz</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="exemple-article.html" class="article-card" data-cat="formation">
+      <div class="article-thumb"><span class="cat-tag">Formation</span></div>
+      <div class="article-body-preview">
+        <h3>ICT vs Volume Profile : quelle stratégie pour ton profil ?</h3>
+        <p>Deux approches populaires, deux façons de lire le marché. Laquelle correspond à ta façon de trader ?</p>
+        <div class="article-meta">
+          <span>Hugo, 6 min</span>
+          <span class="points-badge">+15 pts quiz</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+</section>
+
+<footer class="wrap">
+  Plan de construction interne. Département R&amp;D RaiseFX. Non destiné à un usage public.
+</footer>
+
+<script>
+(function() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.article-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        card.style.display = (filter === 'all' || card.dataset.cat === filter) ? 'block' : 'none';
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
