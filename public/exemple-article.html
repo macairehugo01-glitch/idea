@@ -95,10 +95,6 @@
   .quiz-options { display: flex; flex-direction: column; gap: 8px; }
   .quiz-option { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-dim); cursor: pointer; }
   .quiz-result { margin-top: 16px; padding: 16px; border-radius: 10px; background: var(--gradient-soft); font-size: 14px; color: var(--text); display: none; }
-  .lb-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
-  .lb-table td { padding: 10px 8px; border-bottom: 1px solid var(--border); color: var(--text-dim); }
-  .lb-table tr.you td { color: var(--text); font-weight: 600; background: var(--gradient-soft); }
-  .lb-rank { font-family: var(--mono); color: var(--text-faint); width: 30px; }
   .audio-controls { display: flex; align-items: center; gap: 12px; margin: 8px 0 28px; }
   .audio-btn {
     width: 44px; height: 44px; border-radius: 50%; border: none; background: var(--gradient);
@@ -281,19 +277,6 @@
         <button class="share-btn" id="share-linkedin">Partager sur LinkedIn</button>
       </div>
       <div class="points-toast" id="share-toast">+10 points de fidélité crédités</div>
-    </div>
-
-    <div class="widget">
-      <div class="widget-label">Classement discret de lecture</div>
-      <table class="lb-table">
-        <tbody>
-          <tr><td class="lb-rank">1</td><td>Camille R.</td><td>1 240 pts</td></tr>
-          <tr><td class="lb-rank">2</td><td>Karim B.</td><td>1 180 pts</td></tr>
-          <tr><td class="lb-rank">3</td><td>Sofia T.</td><td>1 050 pts</td></tr>
-          <tr class="you"><td class="lb-rank">4</td><td>Vous</td><td id="your-points">890 pts</td></tr>
-          <tr><td class="lb-rank">5</td><td>Antoine L.</td><td>845 pts</td></tr>
-        </tbody>
-      </table>
     </div>
 
   </div>
