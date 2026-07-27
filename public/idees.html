@@ -7,6 +7,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+  .axis-clickable { cursor: pointer; }
+  .axis-clickable:hover h3 { color: var(--red); }
+  .zoom-toggle {
+    font-family: var(--mono); font-size: 11px; color: var(--red); margin-left: 10px; font-weight: 500;
+    text-transform: none; letter-spacing: 0;
+  }
+  .axis-zoom { display: none; }
+  .axis-zoom.open { display: block; }
+</style>
 </head>
 <body>
 
@@ -77,83 +87,89 @@
     </div>
   </div>
 
-  <div class="axis" style="border-bottom:none;">
+  <div class="axis axis-clickable" data-axis="5">
     <div class="axis-num">05</div>
     <div>
-      <h3>Mesure de la rétention dès le premier jour</h3>
+      <h3>Mesure de la rétention dès le premier jour <span class="zoom-toggle">Zoom ▾</span></h3>
       <p>Contrairement à un contenu purement éditorial, chaque publication peut être reliée à des métriques de rétention (retour sur la plateforme, activité de trading après lecture) : un pilotage data que peu de départements R&amp;D broker exposent en interne.</p>
+
+      <div class="axis-zoom" id="zoom-5">
+        <h2 style="margin-top:20px;">Tout traquer dès le premier jour.</h2>
+        <p class="lede">Comme le contenu R&amp;D vit nativement sur le site RaiseFX, même identifiant client et même session que la plateforme de trading, chaque lecture peut être croisée avec l'activité de trading sans système séparé à construire. Ça permet de faire de l'A/B testing sur les formats dès le lancement, et de répondre à une question simple pour chaque article : est-ce qu'un lecteur a ensuite tradé l'actif couvert, oui ou non.</p>
+
+        <div class="card" style="margin-top: 12px; padding: 32px;">
+          <div class="tag" style="margin-bottom:20px;">Flux de données proposé, natif, un seul système</div>
+          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0; font-family: var(--mono); font-size: 13px;">
+            <div style="flex:1; min-width:190px; padding:18px; border:1px solid var(--border-strong); border-radius:10px; text-align:center;">
+              Client connecté lit un article ou regarde un live<br><span style="color:var(--text-faint); font-size:11px;">(tag contenu : actif, thème, format)</span>
+            </div>
+            <div style="flex:0 0 auto; padding:0 14px; color:var(--red); font-size:18px;">→</div>
+            <div style="flex:1; min-width:190px; padding:18px; border:1px solid var(--border-strong); border-radius:10px; text-align:center;">
+              Même compte client déjà utilisé pour trader<br><span style="color:var(--text-faint); font-size:11px;">(pas d'ID séparé à recouper)</span>
+            </div>
+            <div style="flex:0 0 auto; padding:0 14px; color:var(--red); font-size:18px;">→</div>
+            <div style="flex:1; min-width:190px; padding:18px; border:1px solid var(--border-strong); border-radius:10px; text-align:center;">
+              Lecture de contenu et activité de trading, même base<br><span style="color:var(--text-faint); font-size:11px;">(connexions, trades, churn)</span>
+            </div>
+            <div style="flex:0 0 auto; padding:0 14px; color:var(--red); font-size:18px;">→</div>
+            <div style="flex:1; min-width:190px; padding:18px; border:1px solid var(--gradient); border-radius:10px; text-align:center; background: var(--gradient-soft);">
+              Score de rétention par contenu<br><span style="color:var(--text-dim); font-size:11px;">(quels formats retiennent vraiment)</span>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top:20px; font-size:14px;">Concrètement : pas de hashing, pas de job de réconciliation hebdomadaire entre deux bases. La lecture d'un article et l'ouverture d'une position sont deux événements du même compte, sur le même site. Le croisement devient une requête, pas un projet data à part entière.</p>
+
+        <div class="grid grid-2" style="margin-top:28px;">
+          <div class="card">
+            <h3>Ce qu'on mesure</h3>
+            <p style="margin-bottom:10px;"><strong style="color:var(--text);">Retour plateforme</strong> : connexion dans les 24 à 48h après lecture</p>
+            <p style="margin-bottom:10px;"><strong style="color:var(--text);">Activité post-lecture</strong> : ouverture d'une position sur l'actif couvert</p>
+            <p style="margin-bottom:10px;"><strong style="color:var(--text);">Fréquence de connexion</strong> : clients exposés vs non exposés au contenu</p>
+            <p style="margin:0;"><strong style="color:var(--text);">Survie du compte</strong> : churn à 3, 6 et 12 mois selon exposition au contenu</p>
+          </div>
+          <div class="card">
+            <h3>Ce que ça permet</h3>
+            <p style="margin-bottom:10px;">Prioriser les formats qui retiennent vraiment, au lieu de deviner</p>
+            <p style="margin-bottom:10px;">Justifier le temps du département avec des chiffres de rétention, pas juste du volume publié</p>
+            <p style="margin:0;">Construire l'argument de la phase 2 (plus de ressources, plus de formats) sur des preuves internes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="axis axis-clickable" data-axis="6">
+    <div class="axis-num">06</div>
+    <div>
+      <h3>Jouer l'inconnu comme un actif, pas un handicap <span class="zoom-toggle">Zoom ▾</span></h3>
+      <p>Les têtes d'affiche concurrentes (Hardy chez Saxo, Brooks chez XTB, Beauchamp chez IG) sont crédibles par accumulation : 15 à 24 ans d'ancienneté, livres publiés, citations presse. Personne ne rattrape ça en un week-end. Mais elles ont toutes perdu en route ce qu'un inconnu peut encore offrir : la proximité.</p>
+
+      <div class="axis-zoom" id="zoom-6">
+        <h2 style="margin-top:20px;">Ce que les grands noms ne peuvent plus offrir.</h2>
+        <div class="grid grid-3">
+          <div class="card">
+            <h3>Accessibilité dès le début</h3>
+            <p>Quand l'audience est encore petite, chaque question posée peut avoir une réponse personnelle. C'est le moment où l'accessibilité a le plus de valeur, avant qu'un volume trop large ne rende ça impossible à tenir dans la durée.</p>
+          </div>
+          <div class="card">
+            <h3>Une relation directe</h3>
+            <p>Les têtes d'affiche concurrentes ne répondent pas aux commentaires. Un analyste qui démarre peut répondre en direct, faire des lives où chaque question a une réponse personnelle : ça crée une relation, pas juste une consommation de contenu.</p>
+          </div>
+          <div class="card">
+            <h3>"Je l'ai suivi avant que ça explose"</h3>
+            <p>Les gens aiment se sentir avoir découvert quelqu'un tôt : un moteur de bouche-à-oreille réel, plus fort qu'un abonnement à un flux institutionnel. Combiné à un ton direct, moins lissé par la communication corporate, c'est ce qui différencie un créateur suivi d'un communiqué de recherche.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="axis" style="border-bottom:none;">
-    <div class="axis-num">06</div>
+    <div class="axis-num">07</div>
     <div>
-      <h3>Jouer l'inconnu comme un actif, pas un handicap</h3>
-      <p>Les têtes d'affiche concurrentes (Hardy chez Saxo, Brooks chez XTB, Beauchamp chez IG) sont crédibles par accumulation : 15 à 24 ans d'ancienneté, livres publiés, citations presse. Personne ne rattrape ça en un week-end. Mais elles ont toutes perdu en route ce qu'un inconnu peut encore offrir : la proximité.</p>
-    </div>
-  </div>
-</section>
-
-<section class="wrap">
-  <div class="eyebrow">Zoom sur l'axe 05</div>
-  <h2>Tout traquer dès le premier jour.</h2>
-  <p class="lede">Comme le contenu R&amp;D vit nativement sur le site RaiseFX, même identifiant client et même session que la plateforme de trading, chaque lecture peut être croisée avec l'activité de trading sans système séparé à construire. Ça permet de faire de l'A/B testing sur les formats dès le lancement, et de répondre à une question simple pour chaque article : est-ce qu'un lecteur a ensuite tradé l'actif couvert, oui ou non.</p>
-
-  <div class="card" style="margin-top: 12px; padding: 32px;">
-    <div class="tag" style="margin-bottom:20px;">Flux de données proposé, natif, un seul système</div>
-    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0; font-family: var(--mono); font-size: 13px;">
-      <div style="flex:1; min-width:190px; padding:18px; border:1px solid var(--border-strong); border-radius:10px; text-align:center;">
-        Client connecté lit un article ou regarde un live<br><span style="color:var(--text-faint); font-size:11px;">(tag contenu : actif, thème, format)</span>
-      </div>
-      <div style="flex:0 0 auto; padding:0 14px; color:var(--red); font-size:18px;">→</div>
-      <div style="flex:1; min-width:190px; padding:18px; border:1px solid var(--border-strong); border-radius:10px; text-align:center;">
-        Même compte client déjà utilisé pour trader<br><span style="color:var(--text-faint); font-size:11px;">(pas d'ID séparé à recouper)</span>
-      </div>
-      <div style="flex:0 0 auto; padding:0 14px; color:var(--red); font-size:18px;">→</div>
-      <div style="flex:1; min-width:190px; padding:18px; border:1px solid var(--border-strong); border-radius:10px; text-align:center;">
-        Lecture de contenu et activité de trading, même base<br><span style="color:var(--text-faint); font-size:11px;">(connexions, trades, churn)</span>
-      </div>
-      <div style="flex:0 0 auto; padding:0 14px; color:var(--red); font-size:18px;">→</div>
-      <div style="flex:1; min-width:190px; padding:18px; border:1px solid var(--gradient); border-radius:10px; text-align:center; background: var(--gradient-soft);">
-        Score de rétention par contenu<br><span style="color:var(--text-dim); font-size:11px;">(quels formats retiennent vraiment)</span>
-      </div>
-    </div>
-  </div>
-
-  <p style="margin-top:20px; font-size:14px;">Concrètement : pas de hashing, pas de job de réconciliation hebdomadaire entre deux bases. La lecture d'un article et l'ouverture d'une position sont deux événements du même compte, sur le même site. Le croisement devient une requête, pas un projet data à part entière.</p>
-
-  <div class="grid grid-2" style="margin-top:28px;">
-    <div class="card">
-      <h3>Ce qu'on mesure</h3>
-      <p style="margin-bottom:10px;"><strong style="color:var(--text);">Retour plateforme</strong> : connexion dans les 24 à 48h après lecture</p>
-      <p style="margin-bottom:10px;"><strong style="color:var(--text);">Activité post-lecture</strong> : ouverture d'une position sur l'actif couvert</p>
-      <p style="margin-bottom:10px;"><strong style="color:var(--text);">Fréquence de connexion</strong> : clients exposés vs non exposés au contenu</p>
-      <p style="margin:0;"><strong style="color:var(--text);">Survie du compte</strong> : churn à 3, 6 et 12 mois selon exposition au contenu</p>
-    </div>
-    <div class="card">
-      <h3>Ce que ça permet</h3>
-      <p style="margin-bottom:10px;">Prioriser les formats qui retiennent vraiment, au lieu de deviner</p>
-      <p style="margin-bottom:10px;">Justifier le temps du département avec des chiffres de rétention, pas juste du volume publié</p>
-      <p style="margin:0;">Construire l'argument de la phase 2 (plus de ressources, plus de formats) sur des preuves internes</p>
-    </div>
-  </div>
-</section>
-
-<section class="wrap">
-  <div class="eyebrow">Zoom sur l'axe 06</div>
-  <h2>Ce que les grands noms ne peuvent plus offrir.</h2>
-  <div class="grid grid-3">
-    <div class="card">
-      <h3>Accessibilité dès le début</h3>
-      <p>Quand l'audience est encore petite, chaque question posée peut avoir une réponse personnelle. C'est le moment où l'accessibilité a le plus de valeur, avant qu'un volume trop large ne rende ça impossible à tenir dans la durée.</p>
-    </div>
-    <div class="card">
-      <h3>Une relation directe</h3>
-      <p>Les têtes d'affiche concurrentes ne répondent pas aux commentaires. Un analyste qui démarre peut répondre en direct, faire des lives où chaque question a une réponse personnelle : ça crée une relation, pas juste une consommation de contenu.</p>
-    </div>
-    <div class="card">
-      <h3>"Je l'ai suivi avant que ça explose"</h3>
-      <p>Les gens aiment se sentir avoir découvert quelqu'un tôt : un moteur de bouche-à-oreille réel, plus fort qu'un abonnement à un flux institutionnel. Combiné à un ton direct, moins lissé par la communication corporate, c'est ce qui différencie un créateur suivi d'un communiqué de recherche.</p>
+      <h3>Articles interactifs poussés</h3>
+      <p>Sondages en direct, graphiques manipulables, prédictions avant lecture : l'article devient un objet qu'on manipule plutôt qu'un texte qu'on consulte. Le détail complet est développé dans la section "Interactivité des articles" plus bas sur cette page.</p>
     </div>
   </div>
 </section>
@@ -313,6 +329,19 @@
 <footer class="wrap">
   Plan de construction interne. Département R&amp;D RaiseFX. Non destiné à un usage public.
 </footer>
+
+<script>
+(function() {
+  document.querySelectorAll('.axis-clickable').forEach(axis => {
+    axis.addEventListener('click', () => {
+      const zoom = axis.querySelector('.axis-zoom');
+      const toggle = axis.querySelector('.zoom-toggle');
+      const isOpen = zoom.classList.toggle('open');
+      if (toggle) toggle.textContent = isOpen ? 'Zoom ▴' : 'Zoom ▾';
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
