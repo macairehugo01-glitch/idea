@@ -3,10 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fondations : R&D RaiseFX</title>
+<title>Formation, aperçu client : R&D RaiseFX</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<style>
+  .demo-banner {
+    background: var(--gradient-soft);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+  }
+  .demo-banner strong { color: var(--text); }
+
+  .quiz-teaser {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    background: var(--gradient-soft); border: 1px solid var(--border-strong); border-radius: var(--radius);
+    padding: 22px 26px; margin-bottom: 40px;
+  }
+  .quiz-teaser h3 { margin: 0 0 4px; }
+  .quiz-teaser p { margin: 0; color: var(--text-dim); font-size: 14px; }
+
+  .module-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 900px) { .module-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .module-grid { grid-template-columns: 1fr; } }
+
+  .module-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 22px; transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .module-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .module-level {
+    font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border-strong); color: var(--text-dim);
+    display: inline-block; margin-bottom: 12px;
+  }
+  .module-card h3 { font-size: 16px; margin: 0 0 8px; }
+  .module-card p { font-size: 13px; color: var(--text-dim); margin: 0 0 14px; line-height: 1.5; }
+  .module-meta { font-size: 12px; color: var(--text-faint); font-family: var(--mono); }
+
+  .back-link { font-size: 13px; color: var(--text-faint); display:inline-block; margin-bottom:18px; }
+</style>
 </head>
 <body>
 
@@ -17,7 +57,7 @@
       <a href="index.html">Vue d'ensemble</a>
       <a href="articles.html">Benchmark</a>
       <a href="webinaire.html">Nos profils</a>
-      <a href="formation.html" class="active">Fondations</a>
+      <a href="formation.html">Fondations</a>
       <a href="idees.html">Idées</a>
       <a href="lives.html">Lives</a>
       <a href="roadmap.html">Roadmap</a>
@@ -27,99 +67,69 @@
   </div>
 </nav>
 
-<header class="wrap kicker-page">
-  <div class="eyebrow">Page 03 : Fondations</div>
-  <h1>Les fondations à poser.</h1>
-  <p class="lede">Le plan de construction, brique par brique. Chaque bloc part de zéro et décrit ce qu'il faut construire pour atteindre le niveau des départements de référence.</p>
+<header class="wrap kicker-page" style="padding-bottom: 20px;">
+  <a href="exemple-accueil.html" class="back-link">← Retour à l'accueil articles</a>
+  <div class="demo-banner"><strong>Ceci est une démonstration.</strong> Aperçu du hub formation, séparé du flux d'articles.</div>
+  <div class="eyebrow">Espace recherche RaiseFX, formation</div>
+  <h1>Formation</h1>
+  <p class="lede">Des modules courts, classés par stratégie et par niveau, pour progresser à ton rythme.</p>
 </header>
 
-<section class="wrap" style="padding-bottom: 20px;">
-  <div class="eyebrow">En un coup d'œil</div>
-  <div class="grid grid-3">
-    <div class="card">
-      <div class="tag">À poser en premier</div>
-      <h3 style="margin-top:14px;">Contenu + visage (en cours)</h3>
-      <p>Rythme éditorial en anglais et analystes identifiés. Rien d'autre ne tient sans ces deux briques.</p>
-    </div>
-    <div class="card">
-      <div class="tag">Ensuite</div>
-      <h3 style="margin-top:14px;">Formation + SEO + plateforme</h3>
-      <p>Un module d'apprentissage structuré, et le contenu visible directement dans l'espace client.</p>
-    </div>
-    <div class="card">
-      <div class="tag">En parallèle</div>
-      <h3 style="margin-top:14px;">Volet français</h3>
-      <p>Un complément de rétention pour les clients francophones déjà acquis.</p>
-    </div>
-  </div>
-</section>
-
-<section class="wrap" style="padding-top: 40px;">
-  <div class="gap-item">
-    <div>
-      <div class="gap-col-label have">Bloc 1</div>
-      <h3>Production éditoriale en anglais</h3>
-      <p>Un rythme de publication régulier en anglais, aligné sur la langue d'acquisition : analyses marché quotidiennes ou hebdomadaires, structurées et signées.</p>
-    </div>
-    <div>
-      <div class="gap-col-label need">À construire</div>
-      <p>Un calendrier éditorial, un gabarit d'article réutilisable, et un rythme de publication tenable dans la durée.</p>
-    </div>
-  </div>
-
-  <div class="gap-item">
-    <div>
-      <div class="gap-col-label have">Bloc 2</div>
-      <h3>Formation structurée</h3>
-      <p>Un parcours pédagogique pour les nouveaux clients, comparable aux hubs éducation de Saxo ou IG.</p>
-    </div>
-    <div>
-      <div class="gap-col-label need">À construire</div>
-      <p>Un module "apprendre à trader" en anglais, en plusieurs niveaux, accessible directement depuis l'espace client.</p>
-    </div>
-  </div>
-
-  <div class="gap-item">
-    <div>
-      <div class="gap-col-label have">Bloc 3</div>
-      <h3>Des visages identifiés</h3>
-      <p>Des analystes visibles et nommés qui portent le contenu, comme chez les trois concurrents benchmarkés. On est possiblement 3 à pouvoir le faire.</p>
-    </div>
-    <div>
-      <div class="gap-col-label need">À construire</div>
-      <p>Une page profil publique, une présence régulière en vidéo et en live, un ton reconnaissable dans chaque publication.</p>
-    </div>
-  </div>
-
-  <div class="gap-item">
-    <div>
-      <div class="gap-col-label have">Bloc 4</div>
-      <h3>Intégration à la plateforme</h3>
-      <p>Le contenu doit vivre dans l'espace client RaiseFX, pas sur un site séparé.</p>
-    </div>
-    <div>
-      <div class="gap-col-label need">À construire</div>
-      <p>Un point d'entrée recherche directement visible depuis le compte client, pas une page annexe difficile à trouver.</p>
-    </div>
-  </div>
-
-  <div class="gap-item" style="border-bottom:none;">
-    <div>
-      <div class="gap-col-label have">Bloc 5</div>
-      <h3>Volet rétention français</h3>
-      <p>Un complément ciblé pour les clients francophones déjà acquis, en plus de la base anglaise.</p>
-    </div>
-    <div>
-      <div class="gap-col-label need">À construire</div>
-      <p>Une sélection de contenus traduits ou adaptés spécifiquement pour ce segment, sans dupliquer tout le programme anglais.</p>
-    </div>
-  </div>
-</section>
-
 <section class="wrap">
-  <div class="eyebrow">En résumé</div>
-  <h2>Cinq briques, un ordre de priorité.</h2>
-  <p class="lede">La production éditoriale et le visage identifié sont les deux briques à poser en premier : sans elles, rien d'autre n'a de matière à s'appuyer dessus. L'intégration plateforme et le volet français peuvent suivre une fois le rythme de publication stabilisé.</p>
+
+  <div class="quiz-teaser">
+    <div>
+      <h3>Tu ne sais pas par où commencer ?</h3>
+      <p>Un quiz de 2 minutes pour trouver la stratégie, l'actif et le format qui te correspondent.</p>
+    </div>
+    <a href="exemple-quiz.html" class="btn btn-primary">Faire le quiz →</a>
+  </div>
+
+  <div class="module-grid">
+    <div class="module-card">
+      <div class="module-level">Débutant</div>
+      <h3>Introduction à l'ICT</h3>
+      <p>Les bases de la lecture de structure de marché et des zones de liquidité.</p>
+      <div class="module-meta">Hugo, 12 min</div>
+    </div>
+    <div class="module-card">
+      <div class="module-level">Débutant</div>
+      <h3>Comprendre le risque et le sizing</h3>
+      <p>Comment calculer une taille de position avant de penser à la stratégie.</p>
+      <div class="module-meta">David, 9 min</div>
+    </div>
+    <div class="module-card">
+      <div class="module-level">Intermédiaire</div>
+      <h3>Volume Profile pour débutants</h3>
+      <p>Lire où le volume se concentre réellement plutôt que de suivre le prix seul.</p>
+      <div class="module-meta">Hugo, 15 min</div>
+    </div>
+    <div class="module-card">
+      <div class="module-level">Intermédiaire</div>
+      <h3>Lire un graphique en range</h3>
+      <p>Reconnaître une phase de range et adapter sa stratégie en conséquence.</p>
+      <div class="module-meta">Rim, 11 min</div>
+    </div>
+    <div class="module-card">
+      <div class="module-level">Intermédiaire</div>
+      <h3>Fondamentaux macro pour traders</h3>
+      <p>Les publications économiques qui comptent vraiment, et pourquoi.</p>
+      <div class="module-meta">Rim, 14 min</div>
+    </div>
+    <div class="module-card">
+      <div class="module-level">Débutant</div>
+      <h3>Reconnaître les patterns de prix</h3>
+      <p>Les figures qui reviennent le plus souvent, et comment les valider avant d'agir.</p>
+      <div class="module-meta">Hugo, 10 min</div>
+    </div>
+    <div class="module-card">
+      <div class="module-level">Avancé</div>
+      <h3>Scalping vs Swing : trouver son style</h3>
+      <p>Les compromis réels entre les horizons de trading, au-delà des clichés.</p>
+      <div class="module-meta">David, 10 min</div>
+    </div>
+  </div>
+
 </section>
 
 <footer class="wrap">
